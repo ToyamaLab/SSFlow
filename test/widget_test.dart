@@ -5,26 +5,22 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
 import 'package:ssflow/main.dart';
+import 'package:ssflow/pages/home_page/widget_area/_widget_area.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+  testWidgets('Rendering draggable objects test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(MyApp());
+    await tester.pumpWidget(SSFlow());
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
-
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    // finds all draggable widgets
+    expect(find.byType(ColumnWidget), findsOneWidget);
+    expect(find.byType(FunctionWidget), findsOneWidget);
+    expect(find.byType(RepeatHorizontalWidget), findsOneWidget);
+    expect(find.byType(RepeatVerticalWidget), findsOneWidget);
+    expect(find.byType(RowWidget), findsOneWidget);
+    expect(find.byType(TableDataWidget), findsOneWidget);
+    expect(find.byType(BlockWidget), findsOneWidget);
   });
 }
