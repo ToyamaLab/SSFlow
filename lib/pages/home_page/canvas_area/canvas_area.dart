@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ssflow/enum/layout_type.dart';
-import 'package:ssflow/models/tfe_map.dart';
+import 'package:ssflow/models/converter.dart';
 
 class CanvasArea extends StatefulWidget {
   CanvasArea(
@@ -9,6 +9,7 @@ class CanvasArea extends StatefulWidget {
   }) : super(key: key);
 
   final double width;
+  static Converter converter = Converter();
 
   @override
   _CanvasAreaState createState() => _CanvasAreaState();
@@ -16,16 +17,12 @@ class CanvasArea extends StatefulWidget {
 
 class _CanvasAreaState extends State<CanvasArea> {
   String acceptedData = 'none';
-  TFEMap map = TFEMap();
   List<Widget> canvasWidgets = <Widget>[];
 
-  void createTFEMap(String l) {
-    TFEMap newMap = {l: null};
-    map.addAll(newMap);
-  }
+  Converter get _converter => CanvasArea.converter;
 
   void clearCanvas() {
-    map.clear();
+    _converter.widgetTree.clear();
     canvasWidgets.clear();
   }
 
@@ -136,7 +133,6 @@ class _CanvasAreaState extends State<CanvasArea> {
             onAccept: (String layoutValue) {
               setState(() {
                 acceptedData = layoutValue;
-                createTFEMap(layoutValue);
                 addToCanvas(layoutValue);
               });
             },
