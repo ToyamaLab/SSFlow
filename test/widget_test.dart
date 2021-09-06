@@ -7,7 +7,7 @@
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ssflow/main.dart';
-import 'package:ssflow/pages/home_page/widget_area/_widget_area.dart';
+import 'package:ssflow/pages/home_page/left_side_area/widget_area/_widget_area.dart';
 
 void main() {
   testWidgets('Rendering draggable objects test', (WidgetTester tester) async {
