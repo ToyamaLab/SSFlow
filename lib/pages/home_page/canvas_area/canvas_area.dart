@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ssflow/enum/layout_type.dart';
 import 'package:ssflow/models/converter.dart';
+import 'package:ssflow/models/tfe_map.dart';
 
 class CanvasArea extends StatefulWidget {
   CanvasArea(
@@ -9,21 +10,27 @@ class CanvasArea extends StatefulWidget {
   }) : super(key: key);
 
   final double width;
-  static Converter converter = Converter();
 
   @override
-  _CanvasAreaState createState() => _CanvasAreaState();
+  CanvasAreaState createState() => CanvasAreaState();
 }
 
-class _CanvasAreaState extends State<CanvasArea> {
+class CanvasAreaState extends State<CanvasArea> {
   String acceptedData = 'none';
-  List<Widget> canvasWidgets = <Widget>[];
+  String parentId = '---';
+  String parentObject = '---';
+  String childId = '---';
+  String childObject = '---';
+  static List<Widget> canvasWidgets = <Widget>[];
+  static List<TFEMap> widgetTree = <TFEMap>[];
+  static Converter converter = Converter();
 
-  Converter get _converter => CanvasArea.converter;
+  Converter get _converter => converter;
 
   void clearCanvas() {
-    _converter.widgetTree.clear();
+    widgetTree.clear();
     canvasWidgets.clear();
+    converter.maxID = 0;
   }
 
   void addToCanvas(String l) {
@@ -51,13 +58,50 @@ class _CanvasAreaState extends State<CanvasArea> {
     }
 
     Widget sizedDraggable(double width, double height) {
-      return Draggable(
-        data: type.value,
-        child: sizedContainer(width, height, opacity: 0.7),
-        feedback: Material(
-          child: sizedContainer(width, height, opacity: 0.8),
-        ),
-        childWhenDragging: sizedContainer(width, height, opacity: 0.2),
+      TFEMap? map;
+      return DragTarget(
+        builder: (
+          BuildContext context,
+          List<Object?> accepted,
+          List<dynamic> rejectedData,
+        ) {
+          return Draggable<TFEMap>(
+            data: map ??
+                {
+                  'id': -1,
+                  // TODO: layout-type動的にする
+                  'layout-type': 'block',
+                  'parent': null,
+                  'after': null,
+                  'body': null,
+                },
+            child: sizedContainer(width, height, opacity: 0.7),
+            feedback: Material(
+              child: sizedContainer(width, height, opacity: 0.8),
+            ),
+            childWhenDragging: sizedContainer(width, height, opacity: 0.2),
+          );
+        },
+        onAcceptWithDetails: (DragTargetDetails details) {
+          setState(() {
+            final map = details.data;
+            _converter.appendTFE(
+              layoutType: map['layout-type'],
+              // TODO: 親要素を取得してその値にする
+              parent: 1,
+            );
+            addToCanvas(map['layout-type']);
+          });
+        },
+        onMove: (DragTargetDetails details) {
+          map = details.data;
+          if (childObject != map!['layout-type']) {
+            setState(() {
+              childObject = map!['layout-type'];
+              childId = map!['id'];
+            });
+          }
+        },
       );
     }
 
@@ -130,13 +174,48 @@ class _CanvasAreaState extends State<CanvasArea> {
                 ),
               );
             },
-            onAccept: (String layoutValue) {
+            onAcceptWithDetails: (DragTargetDetails details) {
               setState(() {
-                acceptedData = layoutValue;
-                addToCanvas(layoutValue);
+                final map = details.data;
+                _converter.appendTFE(
+                  layoutType: map['layout-type'],
+                );
+                addToCanvas(map['layout-type']);
               });
             },
+            onMove: (DragTargetDetails details) {
+              final map = details.data;
+              if (childObject != map['layout-type']) {
+                setState(() {
+                  childObject = map['layout-type'];
+                  childId = map['id'].toString();
+                });
+              }
+            },
           ),
+          /* parent info for debug
+          Positioned(
+            bottom: 10,
+            right: 10,
+            child: Row(
+              children: [
+                Column(
+                  children: [
+                    Text('Child Object Info'),
+                    Text(childId),
+                    Text(childObject),
+                  ],
+                ),
+                Column(
+                  children: [
+                    Text('Parent Object Info'),
+                    Text(parentId),
+                    Text(parentObject),
+                  ],
+                ),
+              ],
+            ),
+          ),*/
         ],
       ),
     );

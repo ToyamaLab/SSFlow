@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 /// widget treeを表示する場所
-
 class WidgetTreeArea extends StatefulWidget {
   WidgetTreeArea(
     this.width, {
