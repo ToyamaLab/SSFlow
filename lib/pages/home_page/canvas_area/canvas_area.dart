@@ -87,11 +87,13 @@ class CanvasAreaState extends State<CanvasArea> {
                 _willAccepted,
                 opacity: 0.7,
               ),
-              feedback: sizedContainer(
-                width,
-                height,
-                _willAccepted,
-                opacity: 0.8,
+              feedback: Material(
+                child: sizedContainer(
+                  width,
+                  height,
+                  _willAccepted,
+                  opacity: 0.8,
+                ),
               ),
               childWhenDragging: sizedContainer(
                 width,
