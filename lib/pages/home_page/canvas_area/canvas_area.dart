@@ -17,9 +17,9 @@ class CanvasArea extends StatefulWidget {
 
 class CanvasAreaState extends State<CanvasArea> {
   String acceptedData = 'none';
-  String parentId = '---';
+  int parentId = -1;
   String parentObject = '---';
-  String childId = '---';
+  int childId = -1;
   String childObject = '---';
   static List<Widget> canvasWidgets = <Widget>[];
   static List<TFEMap> widgetTree = <TFEMap>[];
@@ -33,23 +33,31 @@ class CanvasAreaState extends State<CanvasArea> {
     converter.maxID = 0;
   }
 
-  void addToCanvas(String l) {
-    L type = l.toLayoutType!;
+  void addToCanvas(TFEMap map) {
+    assert(map.length > 4, 'TFEMapを渡してください');
+
+    L type = (map['layout-type'] as String).toLayoutType!;
     Widget? newWidget;
 
     Widget sizedContainer(
       double width,
-      double height, {
+      double height,
+      bool willAccepted, {
       double? opacity,
     }) {
       return Container(
         width: width,
         height: height,
         decoration: BoxDecoration(
-          border: Border.all(color: Colors.black),
-          color: opacity != null
-              ? Colors.green.withOpacity(opacity)
-              : Colors.green,
+          border: Border.all(
+            color: willAccepted ? Colors.orange : Colors.black,
+            width: willAccepted ? 5.0 : 1.0,
+          ),
+          color: willAccepted
+              ? Colors.white
+              : opacity != null
+                  ? Colors.green.withOpacity(opacity)
+                  : Colors.green,
         ),
         child: Center(
           child: Text(type.value),
@@ -58,50 +66,70 @@ class CanvasAreaState extends State<CanvasArea> {
     }
 
     Widget sizedDraggable(double width, double height) {
-      TFEMap? map;
-      return DragTarget(
-        builder: (
-          BuildContext context,
-          List<Object?> accepted,
-          List<dynamic> rejectedData,
-        ) {
-          return Draggable<TFEMap>(
-            data: map ??
-                {
-                  'id': -1,
-                  // TODO: layout-type動的にする
-                  'layout-type': 'block',
-                  'parent': null,
-                  'after': null,
-                  'body': null,
-                },
-            child: sizedContainer(width, height, opacity: 0.7),
-            feedback: Material(
-              child: sizedContainer(width, height, opacity: 0.8),
-            ),
-            childWhenDragging: sizedContainer(width, height, opacity: 0.2),
-          );
+      bool _willAccepted = false;
+      int? _selectedParentID;
+      return GestureDetector(
+        onTap: () {
+          // for debug
+          print('onTap map: $map');
         },
-        onAcceptWithDetails: (DragTargetDetails details) {
-          setState(() {
-            final map = details.data;
-            _converter.appendTFE(
-              layoutType: map['layout-type'],
-              // TODO: 親要素を取得してその値にする
-              parent: 1,
+        child: DragTarget<TFEMap>(
+          builder: (
+            BuildContext context,
+            List<Object?> accepted,
+            List<dynamic> rejectedData,
+          ) {
+            return Draggable<TFEMap>(
+              data: map,
+              child: sizedContainer(
+                width,
+                height,
+                _willAccepted,
+                opacity: 0.7,
+              ),
+              feedback: Material(
+                child: sizedContainer(
+                  width,
+                  height,
+                  _willAccepted,
+                  opacity: 0.8,
+                ),
+              ),
+              childWhenDragging: sizedContainer(
+                width,
+                height,
+                _willAccepted,
+                opacity: 0.2,
+              ),
             );
-            addToCanvas(map['layout-type']);
-          });
-        },
-        onMove: (DragTargetDetails details) {
-          map = details.data;
-          if (childObject != map!['layout-type']) {
+          },
+          onAcceptWithDetails: (DragTargetDetails details) {
             setState(() {
-              childObject = map!['layout-type'];
-              childId = map!['id'];
+              final data = details.data;
+              _willAccepted = false;
+              _selectedParentID = map['id'];
+              if (data != null) {
+                final TFEMap newTFE = _converter.appendTFE(
+                  layoutType: data['layout-type'],
+                  parent: _selectedParentID,
+                );
+                childId = newTFE['id'];
+                addToCanvas(newTFE);
+              }
             });
-          }
-        },
+          },
+          onMove: (DragTargetDetails details) {
+            _selectedParentID = null;
+          },
+          onWillAccept: (TFEMap? _map) {
+            _willAccepted = true;
+            return true;
+          },
+          onLeave: (TFEMap? _map) {
+            _selectedParentID = null;
+            _willAccepted = false;
+          },
+        ),
       );
     }
 
@@ -177,10 +205,10 @@ class CanvasAreaState extends State<CanvasArea> {
             onAcceptWithDetails: (DragTargetDetails details) {
               setState(() {
                 final map = details.data;
-                _converter.appendTFE(
+                final TFEMap newTFE = _converter.appendTFE(
                   layoutType: map['layout-type'],
                 );
-                addToCanvas(map['layout-type']);
+                addToCanvas(newTFE);
               });
             },
             onMove: (DragTargetDetails details) {
@@ -188,12 +216,12 @@ class CanvasAreaState extends State<CanvasArea> {
               if (childObject != map['layout-type']) {
                 setState(() {
                   childObject = map['layout-type'];
-                  childId = map['id'].toString();
+                  childId = map['id'];
                 });
               }
             },
           ),
-          /* parent info for debug
+          /*// parent info for debug
           Positioned(
             bottom: 10,
             right: 10,
@@ -202,14 +230,14 @@ class CanvasAreaState extends State<CanvasArea> {
                 Column(
                   children: [
                     Text('Child Object Info'),
-                    Text(childId),
+                    Text('$childId'),
                     Text(childObject),
                   ],
                 ),
                 Column(
                   children: [
                     Text('Parent Object Info'),
-                    Text(parentId),
+                    Text('$parentId'),
                     Text(parentObject),
                   ],
                 ),
