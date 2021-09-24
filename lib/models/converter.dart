@@ -44,4 +44,31 @@ class Converter {
     CanvasAreaState.widgetTree.add(newTfe);
     return newTfe;
   }
+
+  /// idで紐付けたTFEを更新する
+  void updateTFE({
+    required int id,
+    String? layoutType,
+    int? parent,
+    int? after,
+    String? body,
+  }) {
+    CanvasAreaState.widgetTree
+        .where((map) => map['id'] == id)
+        .forEach((before) {
+      if (layoutType != null) {
+        before.update('layout-type', (value) => layoutType);
+      }
+      // todo: parent = nullにして更新したい場合はどうする？
+      if (parent != null) {
+        before.update('parent', (value) => parent);
+      }
+      if (after != null) {
+        before.update('after', (value) => after);
+      }
+      if (body != null) {
+        before.update('body', (value) => body);
+      }
+    });
+  }
 }
