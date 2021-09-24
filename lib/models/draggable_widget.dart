@@ -3,7 +3,7 @@ import 'package:ssflow/enum/layout_type.dart';
 import 'package:ssflow/models/converter.dart';
 import 'package:ssflow/models/tfe_map.dart';
 
-abstract class DraggableWidget extends StatelessWidget {
+class DraggableWidget extends StatelessWidget {
   DraggableWidget(
     this.l, {
     this.width = 100.0,
