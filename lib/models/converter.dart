@@ -1,41 +1,47 @@
 import 'package:ssflow/models/tfe_map.dart';
+import 'package:ssflow/pages/home_page/canvas_area/canvas_area.dart';
 
 /// TFEMapとレイアウト、TFEMapとSSQLのコードを変換するためのクラス
 class Converter {
   Converter();
 
-  List<TFEMap> _widgetTree = <TFEMap>[];
-
   /// それぞれのアイテムにIDをつける
   int _maxID = 0;
 
-  List<TFEMap> get widgetTree => _widgetTree;
+  int get nextID => ++_maxID;
 
-  int get maxID => _maxID;
+  set maxID(int id) => this._maxID = id;
 
-  void setWidgetTree(List<TFEMap> widgetTree) {
-    this._widgetTree = widgetTree;
-  }
-
-  int nextID() {
-    _maxID++;
-    return maxID;
-  }
-
-  void appendTFE({
-    required int id,
-    required int parent,
+  TFEMap createTFE({
     required String layoutType,
+    int? id,
+    int? parent,
     int? after,
     String? body,
   }) {
-    TFEMap newTfe = {
-      'id': id,
+    TFEMap newTFE = {
+      'id': id ?? nextID,
+      'layout-type': layoutType,
       'parent': parent,
       'after': after,
-      'layout-type': layoutType,
       'body': body,
     };
-    widgetTree.add(newTfe);
+    return newTFE;
+  }
+
+  TFEMap appendTFE({
+    required String layoutType,
+    int? parent,
+    int? after,
+    String? body,
+  }) {
+    TFEMap newTfe = createTFE(
+      layoutType: layoutType,
+      parent: parent,
+      after: after,
+      body: body,
+    );
+    CanvasAreaState.widgetTree.add(newTfe);
+    return newTfe;
   }
 }
