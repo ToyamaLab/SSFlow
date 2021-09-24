@@ -17,9 +17,9 @@ class CanvasArea extends StatefulWidget {
 
 class CanvasAreaState extends State<CanvasArea> {
   String acceptedData = 'none';
-  int parentId = -1;
+  int parentID = -1;
   String parentObject = '---';
-  int childId = -1;
+  int childID = -1;
   String childObject = '---';
   static List<Widget> canvasWidgets = <Widget>[];
   static List<TFEMap> widgetTree = <TFEMap>[];
@@ -87,13 +87,11 @@ class CanvasAreaState extends State<CanvasArea> {
                 _willAccepted,
                 opacity: 0.7,
               ),
-              feedback: Material(
-                child: sizedContainer(
-                  width,
-                  height,
-                  _willAccepted,
-                  opacity: 0.8,
-                ),
+              feedback: sizedContainer(
+                width,
+                height,
+                _willAccepted,
+                opacity: 0.8,
               ),
               childWhenDragging: sizedContainer(
                 width,
@@ -113,7 +111,7 @@ class CanvasAreaState extends State<CanvasArea> {
                   layoutType: data['layout-type'],
                   parent: _selectedParentID,
                 );
-                childId = newTFE['id'];
+                childID = newTFE['id'];
                 addToCanvas(newTFE);
               }
             });
@@ -216,7 +214,7 @@ class CanvasAreaState extends State<CanvasArea> {
               if (childObject != map['layout-type']) {
                 setState(() {
                   childObject = map['layout-type'];
-                  childId = map['id'];
+                  childID = map['id'];
                 });
               }
             },
