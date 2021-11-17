@@ -1,28 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:ssflow/enum/layout_type.dart';
-import 'package:ssflow/models/converter.dart';
-import 'package:ssflow/models/tfe_map.dart';
+import 'package:ssflow/models/ss_element.dart';
 
-class DraggableWidget extends StatelessWidget {
-  DraggableWidget(
+class DraggableObject extends StatelessWidget {
+  final L l;
+  final double width;
+  final double height;
+
+  DraggableObject(
     this.l, {
     this.width = 100.0,
     this.height = 100.0 / 2,
     Key? key,
   }) : super(key: key);
 
-  final L l;
-  final double width;
-  final double height;
-
   @override
   Widget build(BuildContext context) {
-    TFEMap map = Converter().createTFE(
-      layoutType: l.value,
-      id: 0,
-    );
-    return Draggable<TFEMap>(
-      data: map,
+    return Draggable<SSElement>(
+      data: SSElement(l.value),
       child: Container(
         width: width,
         height: height,
