@@ -25,6 +25,19 @@ extension LayoutTypeExtension on L {
   };
 
   String get value => typeNames[this]!;
+
+  bool isLayoutElement() {
+    switch (this) {
+      case LayoutType.column:
+      case LayoutType.row:
+      case LayoutType.repeatVertical:
+      case LayoutType.repeatHorizontal:
+      case LayoutType.block:
+        return true;
+      default:
+        return false;
+    }
+  }
 }
 
 extension LayoutTypeStringExtension on String {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:ssflow/enum/layout_type.dart';
 import 'package:ssflow/models/ss_element.dart';
 import 'package:ssflow/models/tree_node.dart';
@@ -154,6 +155,10 @@ class CanvasAreaState extends State<CanvasArea> {
       return;
     }
 
+    if (!canAddObject(thisData?.layoutType)) {
+      return null;
+    }
+
     setState(() {
       SSElement newElement = details.data;
       newElement.parentUuid = thisData?.uuid;
@@ -163,6 +168,21 @@ class CanvasAreaState extends State<CanvasArea> {
       // DraggableBlockState.state.setState(() {});
       print(treeNodes);
     });
+  }
+
+  bool canAddObject(String? layoutType) {
+    if (layoutType == null) {
+      // `parent = null`はparentがrootの意味
+      return true;
+    }
+
+    final L type = layoutType.toLayoutType!;
+    if (type.isLayoutElement()) {
+      return true;
+    } else {
+      EasyLoading.showError('このタイプのオブジェクトには追加できません');
+      return false;
+    }
   }
 
   @override
