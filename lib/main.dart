@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import 'pages/home_page/home_page.dart';
 
@@ -17,6 +18,7 @@ class SSFlow extends StatelessWidget {
       home: Scaffold(
         body: HomePage(),
       ),
+      builder: EasyLoading.init(),
     );
   }
 }
