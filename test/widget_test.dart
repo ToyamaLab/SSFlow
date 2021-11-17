@@ -7,7 +7,7 @@
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ssflow/main.dart';
-import 'package:ssflow/pages/home_page/left_side_area/widget_area/_widget_area.dart';
+import 'package:ssflow/models/draggable_objects/_draggable_objects.dart';
 
 void main() {
   testWidgets('Rendering draggable objects test', (WidgetTester tester) async {
@@ -15,12 +15,12 @@ void main() {
     await tester.pumpWidget(SSFlow());
 
     // finds all draggable widgets
-    expect(find.byType(ColumnWidget), findsOneWidget);
-    expect(find.byType(FunctionWidget), findsOneWidget);
-    expect(find.byType(RepeatHorizontalWidget), findsOneWidget);
-    expect(find.byType(RepeatVerticalWidget), findsOneWidget);
-    expect(find.byType(RowWidget), findsOneWidget);
-    expect(find.byType(TableDataWidget), findsOneWidget);
-    expect(find.byType(BlockWidget), findsOneWidget);
+    expect(find.byType(SSDraggableColumn), findsOneWidget);
+    expect(find.byType(SSDraggableFunction), findsOneWidget);
+    expect(find.byType(SSDraggableRepeatHorizontal), findsOneWidget);
+    expect(find.byType(SSDraggableRepeatVertical), findsOneWidget);
+    expect(find.byType(SSDraggableRow), findsOneWidget);
+    expect(find.byType(SSDraggableTableData), findsOneWidget);
+    expect(find.byType(SSDraggableBlock), findsOneWidget);
   });
 }
