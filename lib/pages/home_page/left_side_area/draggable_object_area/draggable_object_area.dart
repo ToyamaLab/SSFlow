@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '_widget_area.dart';
+import 'package:ssflow/models/draggable_objects/_draggable_objects.dart';
 
 class WidgetArea extends StatelessWidget {
   WidgetArea(
@@ -23,14 +22,14 @@ class WidgetArea extends StatelessWidget {
           mainAxisSpacing: 10.0,
           crossAxisCount: 2,
           children: [
-            ColumnWidget(),
-            RowWidget(),
-            RepeatVerticalWidget(),
-            RepeatHorizontalWidget(),
-            TextWidget(),
-            FunctionWidget(),
-            TableDataWidget(),
-            BlockWidget(),
+            SSDraggableColumn(),
+            SSDraggableRow(),
+            SSDraggableRepeatVertical(),
+            SSDraggableRepeatHorizontal(),
+            SSDraggableText(),
+            SSDraggableFunction(),
+            SSDraggableTableData(),
+            SSDraggableBlock(),
           ],
         ),
       ),

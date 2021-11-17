@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ssflow/pages/home_page/left_side_area/widget_area/widget_area.dart';
+import 'package:ssflow/pages/home_page/left_side_area/draggable_object_area/draggable_object_area.dart';
 import 'package:ssflow/pages/home_page/left_side_area/widget_tree_area/widget_tree_area.dart';
 
 /// Widget Treeを表示しておく
