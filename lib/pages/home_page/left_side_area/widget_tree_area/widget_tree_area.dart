@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ssflow/models/tfe_map.dart';
-import 'package:ssflow/pages/home_page/canvas_area/canvas_area.dart';
 
 /// widget treeを表示する場所
 class WidgetTreeArea extends StatefulWidget {
@@ -94,7 +93,9 @@ class _WidgetTreeAreaState extends State<WidgetTreeArea> {
         color: Colors.red,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
-          children: buildExpansionTiles(CanvasAreaState.widgetTree),
+          // TODO fix this ref: #23
+          // children: buildExpansionTiles(CanvasAreaState.treeNodes),
+          children: buildExpansionTiles([]),
         ),
       ),
     );
