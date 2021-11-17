@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ssflow/enum/layout_type.dart';
-import 'package:ssflow/models/converter.dart';
-import 'package:ssflow/models/tfe_map.dart';
+import 'package:ssflow/models/ss_element.dart';
+import 'package:ssflow/models/tree_node.dart';
 
 class CanvasArea extends StatefulWidget {
   CanvasArea(
@@ -16,28 +16,23 @@ class CanvasArea extends StatefulWidget {
 }
 
 class CanvasAreaState extends State<CanvasArea> {
-  String acceptedData = 'none';
-  int parentID = -1;
-  String parentObject = '---';
-  int childID = -1;
-  String childObject = '---';
-  static List<Widget> canvasWidgets = <Widget>[];
-  static List<TFEMap> widgetTree = <TFEMap>[];
-  static Converter converter = Converter();
+  /// canvasに入るものなので、DragTargetのリスト
+  List<Widget> canvasObjects = <Widget>[];
+  List<SSElement> ssElements = <SSElement>[];
 
-  Converter get _converter => converter;
+  /// SSElementのnode
+  TreeNode get treeNodes => TreeNode.fromList(ssElements);
+
+  double get width => widget.width;
 
   void clearCanvas() {
-    widgetTree.clear();
-    canvasWidgets.clear();
-    converter.maxID = 0;
+    ssElements.clear();
+    canvasObjects.clear();
   }
 
-  void addToCanvas(TFEMap map) {
-    assert(map.length > 4, 'TFEMapを渡してください');
-
-    L type = (map['layout-type'] as String).toLayoutType!;
-    Widget? newWidget;
+  void buildCanvasObjects(SSElement newElement) {
+    L type = newElement.layoutType.toLayoutType!;
+    late Widget newWidget;
 
     Widget sizedContainer(
       double width,
@@ -67,20 +62,19 @@ class CanvasAreaState extends State<CanvasArea> {
 
     Widget sizedDraggable(double width, double height) {
       bool _willAccepted = false;
-      int? _selectedParentID;
       return GestureDetector(
         onTap: () {
           // for debug
-          print('onTap map: $map');
+          print('onTap newElement: $newElement');
         },
-        child: DragTarget<TFEMap>(
+        child: DragTarget(
           builder: (
             BuildContext context,
             List<Object?> accepted,
             List<dynamic> rejectedData,
           ) {
-            return Draggable<TFEMap>(
-              data: map,
+            return Draggable(
+              data: newElement,
               child: sizedContainer(
                 width,
                 height,
@@ -103,30 +97,17 @@ class CanvasAreaState extends State<CanvasArea> {
               ),
             );
           },
-          onAcceptWithDetails: (DragTargetDetails details) {
-            setState(() {
-              final data = details.data;
-              _willAccepted = false;
-              _selectedParentID = map['id'];
-              if (data != null) {
-                final TFEMap newTFE = _converter.appendTFE(
-                  layoutType: data['layout-type'],
-                  parent: _selectedParentID,
-                );
-                childID = newTFE['id'];
-                addToCanvas(newTFE);
-              }
-            });
+          onAcceptWithDetails: (DragTargetDetails<SSElement> details) {
+            _onAcceptWithDetails(
+              details: details,
+              thisData: newElement,
+            );
           },
-          onMove: (DragTargetDetails details) {
-            _selectedParentID = null;
-          },
-          onWillAccept: (TFEMap? _map) {
+          onWillAccept: (SSElement? _map) {
             _willAccepted = true;
             return true;
           },
-          onLeave: (TFEMap? _map) {
-            _selectedParentID = null;
+          onLeave: (SSElement? _map) {
             _willAccepted = false;
           },
         ),
@@ -160,13 +141,34 @@ class CanvasAreaState extends State<CanvasArea> {
         break;
     }
 
-    canvasWidgets.add(newWidget);
+    setState(() {
+      canvasObjects.add(newWidget);
+    });
+  }
+
+  void _onAcceptWithDetails({
+    DragTargetDetails<SSElement>? details,
+    SSElement? thisData,
+  }) {
+    if (details == null) {
+      return;
+    }
+
+    setState(() {
+      SSElement newElement = details.data;
+      newElement.parentUuid = thisData?.uuid;
+      ssElements.add(newElement);
+      buildCanvasObjects(newElement);
+      // errorになる -> if (mounted)でいけるかも？
+      // DraggableBlockState.state.setState(() {});
+      print(treeNodes);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: this.widget.width,
+      width: width,
       color: Colors.white,
       child: Stack(
         children: [
@@ -182,7 +184,7 @@ class CanvasAreaState extends State<CanvasArea> {
               },
             ),
           ),
-          DragTarget(
+          DragTarget<SSElement>(
             builder: (
               BuildContext context,
               List<Object?> accepted,
@@ -190,35 +192,21 @@ class CanvasAreaState extends State<CanvasArea> {
             ) {
               return Center(
                 child: Container(
-                  width: this.widget.width * 0.8,
-                  height: this.widget.width * 0.5,
+                  width: width * 0.8,
+                  height: width * 0.5,
                   color: Colors.grey,
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: canvasWidgets,
-                    ),
+                    child: Row(children: canvasObjects),
                   ),
                 ),
               );
             },
-            onAcceptWithDetails: (DragTargetDetails details) {
-              setState(() {
-                final map = details.data;
-                final TFEMap newTFE = _converter.appendTFE(
-                  layoutType: map['layout-type'],
-                );
-                addToCanvas(newTFE);
-              });
-            },
-            onMove: (DragTargetDetails details) {
-              final map = details.data;
-              if (childObject != map['layout-type']) {
-                setState(() {
-                  childObject = map['layout-type'];
-                  childID = map['id'];
-                });
-              }
+            onAcceptWithDetails: (DragTargetDetails<SSElement> details) {
+              _onAcceptWithDetails(
+                details: details,
+                thisData: null,
+              );
             },
           ),
           /*// parent info for debug
