@@ -10,7 +10,7 @@ class DraggableObject extends StatelessWidget {
   DraggableObject(
     this.l, {
     this.width = 100.0,
-    this.height = 100.0 / 2,
+    this.height = 100.0,
     Key? key,
   }) : super(key: key);
 
@@ -23,7 +23,13 @@ class DraggableObject extends StatelessWidget {
         height: height,
         color: Colors.blue,
         child: Center(
-          child: Text(l.value),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Text(l.value),
+              Icon(l.iconData),
+            ],
+          ),
         ),
       ),
       feedback: Material(
@@ -38,7 +44,10 @@ class DraggableObject extends StatelessWidget {
             color: Colors.blue.withOpacity(0.3),
           ),
           child: Center(
-            child: Text(l.value),
+            child: Text(
+              l.value,
+              style: TextStyle(color: SSColor.grey),
+            ),
           ),
         ),
       ),

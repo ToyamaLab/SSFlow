@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 /// LayoutType
 typedef L = LayoutType;
 
@@ -24,7 +26,20 @@ extension LayoutTypeExtension on L {
     L.block: 'block',
   };
 
+  static final Map<L, IconData> typeIcons = {
+    L.column: Icons.arrow_downward_sharp,
+    L.row: Icons.arrow_forward_sharp,
+    L.repeatVertical: Icons.vertical_align_bottom_sharp,
+    L.repeatHorizontal: Icons.double_arrow_sharp,
+    L.text: Icons.text_fields,
+    L.function: Icons.functions,
+    L.tableData: Icons.table_rows_rounded,
+    L.block: Icons.check_box_outline_blank_sharp,
+  };
+
   String get value => typeNames[this]!;
+
+  IconData get iconData => typeIcons[this]!;
 
   bool isLayoutElement() {
     switch (this) {

@@ -56,7 +56,9 @@ class CanvasAreaState extends State<CanvasArea> {
                   : Colors.green,
         ),
         child: Center(
-          child: Text(type.value),
+          child: Icon(type.iconData),
+          // todo: 表現の方法を検討する text or icon
+          // child: Text(type.value),
         ),
       );
     }
