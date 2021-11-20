@@ -1,10 +1,15 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod/riverpod.dart';
+
+// Project imports:
 import 'package:ssflow/pages/home_page/left_side_area/draggable_object_area/draggable_object_area.dart';
 import 'package:ssflow/pages/home_page/left_side_area/widget_tree_area/widget_tree_area.dart';
 import 'package:ssflow/providers/_providers.dart';
 import 'package:ssflow/utils/constants/_constants.dart';
-import 'package:riverpod/riverpod.dart';
 
 final _selectedIndex = StateNotifierProvider<_SelectedIndexController, int>(
   (ref) => _SelectedIndexController(),

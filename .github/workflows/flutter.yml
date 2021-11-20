@@ -24,6 +24,9 @@ jobs:
       - name: Verify formatting
         run: flutter format --set-exit-if-changed .
 
+      - name: Sort imports
+        run: flutter pub run import_sorter:main --exit-if-changed
+
       # Consider passing '--fatal-infos' for slightly stricter analysis.
       - name: Analyze project source
         run: flutter analyze
