@@ -34,7 +34,7 @@ class LeftSideArea extends ConsumerWidget {
     final _index = ref.watch(_selectedIndex);
     final _size = Size(width, height);
     WidgetsBinding.instance!.addPostFrameCallback(
-          (_) => ref.read(leftSideAreaSize.notifier).init(context, size: _size),
+      (_) => ref.read(leftSideAreaSize.notifier).init(context, size: _size),
     );
 
     return Material(

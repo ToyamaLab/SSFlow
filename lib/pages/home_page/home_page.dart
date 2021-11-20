@@ -19,7 +19,7 @@ class HomePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     WidgetsBinding.instance!.addPostFrameCallback(
-          (_) => ref.read(windowSize.notifier).init(context),
+      (_) => ref.read(windowSize.notifier).init(context),
     );
 
     return Column(

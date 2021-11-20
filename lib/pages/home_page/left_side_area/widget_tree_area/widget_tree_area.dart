@@ -63,7 +63,7 @@ class WidgetTreeArea extends ConsumerWidget {
 
     while (_parentID != null) {
       final TFEMap _parent = remains.firstWhere(
-            (map) => map['parent'] == null,
+        (map) => map['parent'] == null,
         orElse: () => Map(),
       );
 

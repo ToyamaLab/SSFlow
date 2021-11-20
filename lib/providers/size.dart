@@ -14,7 +14,7 @@ final canvasAreaSize = StateNotifierProvider<_SizeController, Size>(
   (ref) => _SizeController(),
 );
 final attributeAreaSize = StateNotifierProvider<_SizeController, Size>(
-      (ref) => _SizeController(),
+  (ref) => _SizeController(),
 );
 
 class _SizeController extends StateNotifier<Size> {

@@ -11,7 +11,8 @@ class DraggableObject extends StatelessWidget {
   final double width;
   final double height;
 
-  DraggableObject(this.l, {
+  DraggableObject(
+    this.l, {
     this.width = 100.0,
     this.height = 100.0,
     Key? key,

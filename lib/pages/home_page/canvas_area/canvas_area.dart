@@ -38,11 +38,12 @@ class _CanvasAreaState extends ConsumerState<CanvasArea> {
     L type = newElement.layoutType.toLayoutType!;
     late Widget newWidget;
 
-    Widget sizedContainer(double width,
-        double height,
-        bool willAccepted, {
-          double? opacity,
-        }) {
+    Widget sizedContainer(
+      double width,
+      double height,
+      bool willAccepted, {
+      double? opacity,
+    }) {
       return Container(
         width: width,
         height: height,
@@ -54,8 +55,8 @@ class _CanvasAreaState extends ConsumerState<CanvasArea> {
           color: willAccepted
               ? SSColor.white
               : opacity != null
-              ? SSColor.offWhite.withOpacity(opacity)
-              : Colors.green,
+                  ? SSColor.offWhite.withOpacity(opacity)
+                  : Colors.green,
         ),
         child: Center(
           child: Icon(type.iconData),
@@ -73,9 +74,11 @@ class _CanvasAreaState extends ConsumerState<CanvasArea> {
           print('onTap newElement: $newElement');
         },
         child: DragTarget(
-          builder: (BuildContext context,
-              List<Object?> accepted,
-              List<dynamic> rejectedData,) {
+          builder: (
+            BuildContext context,
+            List<Object?> accepted,
+            List<dynamic> rejectedData,
+          ) {
             return Draggable(
               data: newElement,
               child: sizedContainer(
@@ -193,7 +196,7 @@ class _CanvasAreaState extends ConsumerState<CanvasArea> {
     final height = ref.watch(windowSize).height * 0.9;
     final _size = Size(width, height);
     WidgetsBinding.instance!.addPostFrameCallback(
-          (_) => ref.read(canvasAreaSize.notifier).init(context, size: _size),
+      (_) => ref.read(canvasAreaSize.notifier).init(context, size: _size),
     );
 
     return Container(
@@ -215,9 +218,11 @@ class _CanvasAreaState extends ConsumerState<CanvasArea> {
             ),
           ),
           DragTarget<SSElement>(
-            builder: (BuildContext context,
-                List<Object?> accepted,
-                List<dynamic> rejectedData,) {
+            builder: (
+              BuildContext context,
+              List<Object?> accepted,
+              List<dynamic> rejectedData,
+            ) {
               return Center(
                 child: Container(
                   width: width * 0.8,

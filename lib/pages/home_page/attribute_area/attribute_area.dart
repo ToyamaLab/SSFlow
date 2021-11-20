@@ -19,7 +19,7 @@ class AttributeArea extends ConsumerWidget {
     final height = ref.watch(windowSize).height * 0.9;
     final _size = Size(width, height);
     WidgetsBinding.instance!.addPostFrameCallback(
-          (_) => ref.read(attributeAreaSize.notifier).init(context, size: _size),
+      (_) => ref.read(attributeAreaSize.notifier).init(context, size: _size),
     );
 
     return Center(
