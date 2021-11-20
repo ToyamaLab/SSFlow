@@ -59,9 +59,9 @@ extension LayoutTypeExtension on L {
 extension LayoutTypeStringExtension on String {
   L? get toLayoutType {
     L? type;
-    for (var element in LayoutTypeExtension.typeNames.entries) {
-      if (element.value == this) {
-        type = element.key;
+    for (var typeName in LayoutTypeExtension.typeNames.entries) {
+      if (typeName.value == this) {
+        type = typeName.key;
         break;
       }
     }
