@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ssflow/enum/layout_type.dart';
 import 'package:ssflow/models/ss_element.dart';
+import 'package:ssflow/utils/constants/_constants.dart';
 
 class DraggableObject extends StatelessWidget {
   final L l;
@@ -10,7 +11,7 @@ class DraggableObject extends StatelessWidget {
   DraggableObject(
     this.l, {
     this.width = 100.0,
-    this.height = 100.0 / 2,
+    this.height = 100.0,
     Key? key,
   }) : super(key: key);
 
@@ -21,9 +22,15 @@ class DraggableObject extends StatelessWidget {
       child: Container(
         width: width,
         height: height,
-        color: Colors.blue,
+        color: SSColor.white,
         child: Center(
-          child: Text(l.value),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Text(l.value),
+              Icon(l.iconData),
+            ],
+          ),
         ),
       ),
       feedback: Material(
@@ -35,10 +42,13 @@ class DraggableObject extends StatelessWidget {
               color: Colors.green,
               width: 3.0,
             ),
-            color: Colors.blue.withOpacity(0.3),
+            color: SSColor.offWhite.withOpacity(0.3),
           ),
           child: Center(
-            child: Text(l.value),
+            child: Text(
+              l.value,
+              style: TextStyle(color: SSColor.grey),
+            ),
           ),
         ),
       ),

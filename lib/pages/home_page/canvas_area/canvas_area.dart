@@ -1,30 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ssflow/enum/layout_type.dart';
 import 'package:ssflow/models/ss_element.dart';
 import 'package:ssflow/models/tree_node.dart';
+import 'package:ssflow/providers/_providers.dart';
+import 'package:ssflow/utils/constants/_constants.dart';
 
-class CanvasArea extends StatefulWidget {
-  CanvasArea(
-    this.width, {
+class CanvasArea extends ConsumerStatefulWidget {
+  const CanvasArea({
     Key? key,
   }) : super(key: key);
 
-  final double width;
-
   @override
-  CanvasAreaState createState() => CanvasAreaState();
+  ConsumerState createState() => _CanvasAreaState();
 }
 
-class CanvasAreaState extends State<CanvasArea> {
+class _CanvasAreaState extends ConsumerState<CanvasArea> {
   /// canvasに入るものなので、DragTargetのリスト
   List<Widget> canvasObjects = <Widget>[];
   List<SSElement> ssElements = <SSElement>[];
 
   /// SSElementのnode
   TreeNode get treeNodes => TreeNode.fromList(ssElements);
-
-  double get width => widget.width;
 
   void clearCanvas() {
     ssElements.clear();
@@ -46,17 +44,19 @@ class CanvasAreaState extends State<CanvasArea> {
         height: height,
         decoration: BoxDecoration(
           border: Border.all(
-            color: willAccepted ? Colors.orange : Colors.black,
+            color: willAccepted ? SSColor.primary : Colors.black,
             width: willAccepted ? 5.0 : 1.0,
           ),
           color: willAccepted
-              ? Colors.white
+              ? SSColor.white
               : opacity != null
-                  ? Colors.green.withOpacity(opacity)
+                  ? SSColor.offWhite.withOpacity(opacity)
                   : Colors.green,
         ),
         child: Center(
-          child: Text(type.value),
+          child: Icon(type.iconData),
+          // todo: 表現の方法を検討する text or icon
+          // child: Text(type.value),
         ),
       );
     }
@@ -187,9 +187,17 @@ class CanvasAreaState extends State<CanvasArea> {
 
   @override
   Widget build(BuildContext context) {
+    final width = ref.watch(windowSize).width / 4 * 1.5;
+    final height = ref.watch(windowSize).height * 0.9;
+    final _size = Size(width, height);
+    WidgetsBinding.instance!.addPostFrameCallback(
+      (_) => ref.read(canvasAreaSize.notifier).init(context, size: _size),
+    );
+
     return Container(
       width: width,
-      color: Colors.white,
+      height: height,
+      color: SSColor.darkGrey,
       child: Stack(
         children: [
           Positioned(

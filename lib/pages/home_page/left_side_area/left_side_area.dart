@@ -1,37 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ssflow/pages/home_page/left_side_area/draggable_object_area/draggable_object_area.dart';
 import 'package:ssflow/pages/home_page/left_side_area/widget_tree_area/widget_tree_area.dart';
+import 'package:ssflow/providers/_providers.dart';
+import 'package:ssflow/utils/constants/_constants.dart';
+import 'package:riverpod/riverpod.dart';
+
+final _selectedIndex = StateNotifierProvider<_SelectedIndexController, int>(
+  (ref) => _SelectedIndexController(),
+);
+
+class _SelectedIndexController extends StateNotifier<int> {
+  _SelectedIndexController() : super(0);
+
+  void update(int newIndex) => state = newIndex;
+}
 
 /// Widget Treeを表示しておく
-class LeftSideArea extends StatefulWidget {
-  LeftSideArea(
-    this.width, {
+class LeftSideArea extends ConsumerWidget {
+  const LeftSideArea({
     Key? key,
   }) : super(key: key);
 
-  final double width;
-
   @override
-  _LeftSideAreaState createState() => _LeftSideAreaState();
-}
-
-class _LeftSideAreaState extends State<LeftSideArea> {
-  List<Widget> _leftSideAreaList = <Widget>[];
-  int _selectedIndex = 0;
-
-  double get width => widget.width;
-
-  @override
-  Widget build(BuildContext context) {
-    _leftSideAreaList = [
-      WidgetArea(2 * width / 3.0),
-      WidgetTreeArea(2 * width / 3.0),
-    ];
+  Widget build(BuildContext context, WidgetRef ref) {
+    final width = ref.watch(windowSize).width / 4 * 1.5;
+    final height = ref.watch(windowSize).height * 0.9;
+    final _index = ref.watch(_selectedIndex);
+    final _size = Size(width, height);
+    WidgetsBinding.instance!.addPostFrameCallback(
+      (_) => ref.read(leftSideAreaSize.notifier).init(context, size: _size),
+    );
 
     return Material(
       child: Container(
-        width: widget.width,
-        color: Colors.black,
+        width: width,
+        height: height,
+        color: SSColor.black,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -42,28 +47,25 @@ class _LeftSideAreaState extends State<LeftSideArea> {
                 children: [
                   IconButton(
                     icon: Icon(Icons.home_filled),
-                    color: _selectedIndex == 0 ? Colors.orange : Colors.grey,
+                    color: _index == 0 ? SSColor.primary : Colors.grey,
                     hoverColor: Colors.deepOrange,
-                    onPressed: () {
-                      setState(() {
-                        _selectedIndex = 0;
-                      });
-                    },
+                    onPressed: () =>
+                        ref.read(_selectedIndex.notifier).update(0),
                   ),
                   IconButton(
                     icon: Icon(Icons.folder),
-                    color: _selectedIndex == 1 ? Colors.orange : Colors.grey,
+                    color: _index == 1 ? SSColor.primary : Colors.grey,
                     hoverColor: Colors.deepOrange,
-                    onPressed: () {
-                      setState(() {
-                        _selectedIndex = 1;
-                      });
-                    },
+                    onPressed: () =>
+                        ref.read(_selectedIndex.notifier).update(1),
                   ),
                 ],
               ),
             ),
-            _leftSideAreaList[_selectedIndex],
+            const [
+              WidgetArea(),
+              WidgetTreeArea(),
+            ][_index],
           ],
         ),
       ),
