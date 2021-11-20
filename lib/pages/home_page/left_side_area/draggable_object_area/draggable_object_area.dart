@@ -34,7 +34,7 @@ class WidgetArea extends ConsumerWidget {
           crossAxisSpacing: 10.0,
           mainAxisSpacing: 10.0,
           crossAxisCount: 2,
-          children: [
+          children: const [
             SSDraggableColumn(),
             SSDraggableRow(),
             SSDraggableRepeatVertical(),

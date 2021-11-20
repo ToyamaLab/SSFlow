@@ -10,7 +10,7 @@ import 'package:ssflow/providers/_providers.dart';
 import 'pages/home_page/home_page.dart';
 
 void main() {
-  runApp(ProviderScope(child: SSFlow()));
+  runApp(const ProviderScope(child: SSFlow()));
 }
 
 class SSFlow extends ConsumerWidget {
@@ -25,7 +25,7 @@ class SSFlow extends ConsumerWidget {
       title: 'SSFlow',
       theme: ThemeData(primarySwatch: Colors.blue),
       navigatorKey: ref.watch(navigatorKeyProvider),
-      home: Scaffold(
+      home: const Scaffold(
         body: HomePage(),
       ),
       builder: EasyLoading.init(),

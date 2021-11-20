@@ -8,7 +8,9 @@ import 'package:ssflow/pages/home_page/home_page.dart';
 
 void main() {
   testWidgets('Rendering draggable objects test', (WidgetTester tester) async {
-    await tester.pumpWidget(ProviderScope(child: SSFlow()));
+    await tester.pumpWidget(
+      const ProviderScope(child: SSFlow()),
+    );
 
     expect(find.byType(HomePage), findsOneWidget);
   });

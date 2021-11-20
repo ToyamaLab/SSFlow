@@ -1,3 +1,6 @@
+// Flutter imports:
+import 'package:flutter/material.dart';
+
 // Project imports:
 import 'package:ssflow/models/with_uuid.dart';
 
@@ -7,7 +10,7 @@ class TreeNode<T extends WithUuid> {
   Map<String, TreeNode<T>> children;
   TreeNode<T>? parent;
 
-  TreeNode(this.data) : this.children = <String, TreeNode<T>>{};
+  TreeNode(this.data) : children = <String, TreeNode<T>>{};
 
   void clear() {
     children.clear();
@@ -86,10 +89,9 @@ class TreeNode<T extends WithUuid> {
     result.add(nodeStr + parentStr + childrenStr);
 
     children.forEach((String uuid, TreeNode t) {
-      t.toStringList()
-        ..forEach((String str) {
-          result.add('    ' + str);
-        });
+      t.toStringList().forEach((String str) {
+        result.add('    ' + str);
+      });
     });
 
     return result;
@@ -104,8 +106,8 @@ class TreeNode<T extends WithUuid> {
     List<T> unassigned = List<T>.from(list);
 
     int iterations = 0;
-    while (unassigned.length > 0 && iterations < list.length) {
-      print('ITERATION $iterations\n');
+    while (unassigned.isNotEmpty && iterations < list.length) {
+      debugPrint('ITERATION $iterations\n');
       iterations++;
 
       for (T category in list) {

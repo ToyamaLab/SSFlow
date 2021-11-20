@@ -22,8 +22,9 @@ class WidgetTreeArea extends ConsumerWidget {
     int? parentID,
   }) {
     // todo if文の中に入ることはあるのか不明
-    if (parentID == null && (parent != null && parent.isEmpty))
+    if (parentID == null && (parent != null && parent.isEmpty)) {
       return Container();
+    }
 
     List<TFEMap> _remains = [...map];
     List<Widget> _parentChildren = <Widget>[];
@@ -64,7 +65,7 @@ class WidgetTreeArea extends ConsumerWidget {
     while (_parentID != null) {
       final TFEMap _parent = remains.firstWhere(
         (map) => map['parent'] == null,
-        orElse: () => Map(),
+        orElse: () => {},
       );
 
       remains.remove(_parent);

@@ -51,14 +51,14 @@ class LeftSideArea extends ConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   IconButton(
-                    icon: Icon(Icons.home_filled),
+                    icon: const Icon(Icons.home_filled),
                     color: _index == 0 ? SSColor.primary : Colors.grey,
                     hoverColor: Colors.deepOrange,
                     onPressed: () =>
                         ref.read(_selectedIndex.notifier).update(0),
                   ),
                   IconButton(
-                    icon: Icon(Icons.folder),
+                    icon: const Icon(Icons.folder),
                     color: _index == 1 ? SSColor.primary : Colors.grey,
                     hoverColor: Colors.deepOrange,
                     onPressed: () =>
