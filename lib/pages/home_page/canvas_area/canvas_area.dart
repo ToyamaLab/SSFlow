@@ -107,6 +107,7 @@ class _CanvasAreaState extends ConsumerState<CanvasArea> {
               details: details,
               thisData: newElement,
             );
+            _willAccepted = false;
           },
           onWillAccept: (SSElement? _map) {
             _willAccepted = true;
