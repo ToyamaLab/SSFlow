@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ssflow/enum/layout_type.dart';
 import 'package:ssflow/models/ss_element.dart';
+import 'package:ssflow/utils/constants/_constants.dart';
 
 class DraggableObject extends StatelessWidget {
   final L l;
@@ -21,7 +22,7 @@ class DraggableObject extends StatelessWidget {
       child: Container(
         width: width,
         height: height,
-        color: Colors.blue,
+        color: SSColor.white,
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -41,7 +42,7 @@ class DraggableObject extends StatelessWidget {
               color: Colors.green,
               width: 3.0,
             ),
-            color: Colors.blue.withOpacity(0.3),
+            color: SSColor.offWhite.withOpacity(0.3),
           ),
           child: Center(
             child: Text(

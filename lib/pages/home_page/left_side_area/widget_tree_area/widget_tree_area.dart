@@ -1,20 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ssflow/models/tfe_map.dart';
+import 'package:ssflow/providers/_providers.dart';
+import 'package:ssflow/utils/constants/_constants.dart';
 
 /// widget treeを表示する場所
-class WidgetTreeArea extends StatefulWidget {
-  WidgetTreeArea(
-    this.width, {
+class WidgetTreeArea extends ConsumerWidget {
+  const WidgetTreeArea({
     Key? key,
   }) : super(key: key);
 
-  final double width;
-
-  @override
-  _WidgetTreeAreaState createState() => _WidgetTreeAreaState();
-}
-
-class _WidgetTreeAreaState extends State<WidgetTreeArea> {
   // TODO: #9 2段目以降はchildrenが1つになる
   Widget expansionTileChildren({
     required List<TFEMap> map,
@@ -86,11 +81,21 @@ class _WidgetTreeAreaState extends State<WidgetTreeArea> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final width = 2 * ref.watch(leftSideAreaSize).width / 3.0;
+
     return Material(
       child: Container(
-        width: widget.width,
-        color: Colors.red,
+        width: width,
+        decoration: BoxDecoration(
+          border: Border.symmetric(
+            vertical: BorderSide(
+              color: SSColor.grey,
+              width: 1.0,
+            ),
+          ),
+          color: SSColor.black,
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           // TODO fix this ref: #23

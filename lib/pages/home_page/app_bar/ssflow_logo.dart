@@ -4,7 +4,7 @@ import 'package:ssflow/providers/_providers.dart';
 import 'package:ssflow/utils/constants/_constants.dart';
 
 class SSFlowLogo extends ConsumerWidget {
-  SSFlowLogo({Key? key}) : super(key: key);
+  const SSFlowLogo({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -37,7 +37,7 @@ class SSFlowLogo extends ConsumerWidget {
                     TextSpan(
                       text: 'SFlow',
                       style: TextStyle(
-                        color: Colors.white,
+                        color: SSColor.white,
                         fontSize: 32,
                       ),
                     ),

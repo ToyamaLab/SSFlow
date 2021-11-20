@@ -17,7 +17,8 @@ final attributeAreaSize = StateNotifierProvider<_SizeController, Size>(
 class _SizeController extends StateNotifier<Size> {
   _SizeController() : super(Size.zero);
 
-  Future<void> init(BuildContext context, {
+  Future<void> init(
+    BuildContext context, {
     Size? size,
   }) async {
     if (size != null) {
