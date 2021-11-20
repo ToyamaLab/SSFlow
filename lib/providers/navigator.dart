@@ -1,4 +1,7 @@
+// Flutter imports:
 import 'package:flutter/widgets.dart';
+
+// Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final navigatorKeyProvider = Provider((_) => GlobalKey<NavigatorState>());

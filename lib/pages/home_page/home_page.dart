@@ -1,5 +1,10 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+// Project imports:
 import 'package:ssflow/pages/home_page/app_bar/ssflow_logo.dart';
 import 'package:ssflow/providers/_providers.dart';
 import 'attribute_area/attribute_area.dart';
@@ -14,7 +19,7 @@ class HomePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     WidgetsBinding.instance!.addPostFrameCallback(
-      (_) => ref.read(windowSize.notifier).init(context),
+          (_) => ref.read(windowSize.notifier).init(context),
     );
 
     return Column(

@@ -1,4 +1,7 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
 import 'package:ssflow/enum/layout_type.dart';
 import 'package:ssflow/models/ss_element.dart';
 import 'package:ssflow/utils/constants/_constants.dart';
@@ -8,8 +11,7 @@ class DraggableObject extends StatelessWidget {
   final double width;
   final double height;
 
-  DraggableObject(
-    this.l, {
+  DraggableObject(this.l, {
     this.width = 100.0,
     this.height = 100.0,
     Key? key,

@@ -1,5 +1,10 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+// Project imports:
 import 'package:ssflow/models/tfe_map.dart';
 import 'package:ssflow/providers/_providers.dart';
 import 'package:ssflow/utils/constants/_constants.dart';
@@ -58,7 +63,7 @@ class WidgetTreeArea extends ConsumerWidget {
 
     while (_parentID != null) {
       final TFEMap _parent = remains.firstWhere(
-        (map) => map['parent'] == null,
+            (map) => map['parent'] == null,
         orElse: () => Map(),
       );
 
