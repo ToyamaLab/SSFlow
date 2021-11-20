@@ -13,9 +13,9 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    Future.delayed(Duration.zero, () {
-      ref.read(windowSize.notifier).init(context);
-    });
+    WidgetsBinding.instance!.addPostFrameCallback(
+      (_) => ref.read(windowSize.notifier).init(context),
+    );
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,

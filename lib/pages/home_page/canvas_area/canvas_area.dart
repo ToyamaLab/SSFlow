@@ -190,9 +190,9 @@ class _CanvasAreaState extends ConsumerState<CanvasArea> {
     final width = ref.watch(windowSize).width / 4 * 1.5;
     final height = ref.watch(windowSize).height * 0.9;
     final _size = Size(width, height);
-    Future.delayed(Duration.zero, () {
-      ref.read(canvasAreaSize.notifier).init(context, size: _size);
-    });
+    WidgetsBinding.instance!.addPostFrameCallback(
+      (_) => ref.read(canvasAreaSize.notifier).init(context, size: _size),
+    );
 
     return Container(
       width: width,
