@@ -16,7 +16,7 @@ class SSElement with WithUuid {
     this.layoutType, {
     this.body,
   }) {
-    this.uuid = Uuid().v4();
+    uuid = const Uuid().v4();
   }
 
   @override

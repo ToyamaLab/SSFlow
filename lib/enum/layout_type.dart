@@ -59,12 +59,12 @@ extension LayoutTypeExtension on L {
 extension LayoutTypeStringExtension on String {
   L? get toLayoutType {
     L? type;
-    LayoutTypeExtension.typeNames.entries.forEach((element) {
-      if (element.value == this) {
-        type = element.key;
-        return;
+    for (var typeName in LayoutTypeExtension.typeNames.entries) {
+      if (typeName.value == this) {
+        type = typeName.key;
+        break;
       }
-    });
+    }
 
     return type;
   }

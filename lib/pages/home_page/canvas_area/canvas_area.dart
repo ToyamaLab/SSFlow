@@ -70,8 +70,7 @@ class _CanvasAreaState extends ConsumerState<CanvasArea> {
       bool _willAccepted = false;
       return GestureDetector(
         onTap: () {
-          // for debug
-          print('onTap newElement: $newElement');
+          debugPrint('onTap newElement: $newElement');
         },
         child: DragTarget(
           builder: (
@@ -161,7 +160,7 @@ class _CanvasAreaState extends ConsumerState<CanvasArea> {
     }
 
     if (!canAddObject(thisData?.layoutType)) {
-      return null;
+      return;
     }
 
     setState(() {
@@ -171,7 +170,7 @@ class _CanvasAreaState extends ConsumerState<CanvasArea> {
       buildCanvasObjects(newElement);
       // errorになる -> if (mounted)でいけるかも？
       // DraggableBlockState.state.setState(() {});
-      print(treeNodes);
+      debugPrint(treeNodes.toString());
     });
   }
 
@@ -209,7 +208,7 @@ class _CanvasAreaState extends ConsumerState<CanvasArea> {
             top: 10.0,
             right: 10.0,
             child: IconButton(
-              icon: Icon(Icons.clear),
+              icon: const Icon(Icons.clear),
               onPressed: () {
                 setState(() {
                   clearCanvas();
