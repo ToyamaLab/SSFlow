@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import 'package:ssflow/enum/layout_type.dart';
-import 'package:ssflow/models/draggable_object.dart';
+import 'package:ssflow/enum/_enum.dart';
+import 'package:ssflow/models/_models.dart';
 
 class SSDraggableRepeatVertical extends DraggableObject {
   const SSDraggableRepeatVertical({Key? key})

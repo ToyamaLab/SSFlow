@@ -2,8 +2,8 @@
 import 'package:riverpod/riverpod.dart';
 
 // Project imports:
-import 'package:ssflow/models/ss_element.dart';
-import 'package:ssflow/models/tree_node.dart';
+import 'package:ssflow/models/_models.dart';
+import 'package:ssflow/providers/_providers.dart';
 
 final ssElementsProvider =
     StateNotifierProvider<_SSElementsControllerNotifier, List<SSElement>>(

@@ -1,8 +1,5 @@
-// Flutter imports:
-import 'package:flutter/material.dart';
-
 // Project imports:
-import 'package:ssflow/models/with_uuid.dart';
+import 'package:ssflow/models/_models.dart';
 
 /// ref: [https://pub.dev/packages/tree]
 class TreeNode<T extends WithUuid> {
