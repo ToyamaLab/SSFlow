@@ -8,7 +8,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 // Project imports:
 import 'package:ssflow/enum/layout_type.dart';
 import 'package:ssflow/models/ss_element.dart';
-import 'package:ssflow/models/tree_node.dart';
 import 'package:ssflow/providers/_providers.dart';
 import 'package:ssflow/utils/constants/_constants.dart';
 
@@ -24,13 +23,9 @@ class CanvasArea extends ConsumerStatefulWidget {
 class _CanvasAreaState extends ConsumerState<CanvasArea> {
   /// canvasに入るものなので、DragTargetのリスト
   List<Widget> canvasObjects = <Widget>[];
-  List<SSElement> ssElements = <SSElement>[];
-
-  /// SSElementのnode
-  TreeNode get treeNodes => TreeNode.fromList(ssElements);
 
   void clearCanvas() {
-    ssElements.clear();
+    ref.read(ssElementsProvider.notifier).clear();
     canvasObjects.clear();
   }
 
@@ -167,10 +162,11 @@ class _CanvasAreaState extends ConsumerState<CanvasArea> {
     setState(() {
       SSElement newElement = details.data;
       newElement.parentUuid = thisData?.uuid;
-      ssElements.add(newElement);
+      ref.read(ssElementsProvider.notifier).add(newElement);
       buildCanvasObjects(newElement);
       // errorになる -> if (mounted)でいけるかも？
       // DraggableBlockState.state.setState(() {});
+      final treeNodes = ref.watch(ssElementsProvider.notifier).treeNodes;
       debugPrint(treeNodes.toString());
     });
   }
