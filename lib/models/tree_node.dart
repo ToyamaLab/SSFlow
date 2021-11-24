@@ -104,7 +104,6 @@ class TreeNode<T extends WithUuid> {
 
     int iterations = 0;
     while (unassigned.isNotEmpty && iterations < list.length) {
-      debugPrint('ITERATION $iterations\n');
       iterations++;
 
       for (T category in list) {
