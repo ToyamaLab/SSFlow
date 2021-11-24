@@ -4,7 +4,7 @@
 import 'package:uuid/uuid.dart';
 
 // Project imports:
-import 'package:ssflow/models/with_uuid.dart';
+import 'package:ssflow/models/_models.dart';
 
 class SSElement with WithUuid {
   final String layoutType;

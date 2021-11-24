@@ -29,24 +29,24 @@ class LeftSideArea extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final width = ref.watch(windowSize).width / 4 * 1.5;
-    final height = ref.watch(windowSize).height * 0.9;
+    final _width = ref.watch(windowSize).width / 4 * 1.5;
+    final _height = ref.watch(windowSize).height * 0.9;
     final _index = ref.watch(_selectedIndex);
-    final _size = Size(width, height);
+    final _size = Size(_width, _height);
     WidgetsBinding.instance!.addPostFrameCallback(
       (_) => ref.read(leftSideAreaSize.notifier).init(context, size: _size),
     );
 
     return Material(
       child: Container(
-        width: width,
-        height: height,
+        width: _width,
+        height: _height,
         color: SSColor.black,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-              width: 1 * width / 3.0,
+              width: 1 * _width / 3.0,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [

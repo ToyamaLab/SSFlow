@@ -1,8 +1,5 @@
-// Flutter imports:
-import 'package:flutter/material.dart';
-
 // Project imports:
-import 'package:ssflow/models/with_uuid.dart';
+import 'package:ssflow/models/_models.dart';
 
 /// ref: [https://pub.dev/packages/tree]
 class TreeNode<T extends WithUuid> {
@@ -107,7 +104,6 @@ class TreeNode<T extends WithUuid> {
 
     int iterations = 0;
     while (unassigned.isNotEmpty && iterations < list.length) {
-      debugPrint('ITERATION $iterations\n');
       iterations++;
 
       for (T category in list) {
