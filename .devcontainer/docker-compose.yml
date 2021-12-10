@@ -1,0 +1,14 @@
+# ref: https://zenn.dev/nagakuta/articles/bea80b17f315bd069a90
+
+version: '3'
+services:
+  ssflow:
+    build:
+      context: .
+      dockerfile: ./.devcontainer/linux/flutter/Dockerfile
+    volumes:
+      - ./.vscode:/workspace/.vscode:cached
+      - ./:/workspace
+    command: /bin/sh -c "while sleep 1000; do :; done"
+    env_file:
+      - ./.devcontainer/linux/flutter/.flutter.env
