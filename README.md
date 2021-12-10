@@ -1,4 +1,4 @@
-# ssflow
+# SSFlow
 
 kuri 卒論プロジェクト
 
