@@ -14,3 +14,15 @@ kuri 卒論プロジェクト
 2. [hook direnv into your shell](https://github.com/direnv/direnv/blob/master/docs/hook.md)に従って、shellでの設定を行う。なお、この時にshellに `export EDITOR=emacs`などとすると `direnv edit .`の時にそのエディターが起動します。
 3. SSFlowリポジトリのルートディレクトリで `direnv allow .`を行うことでルート直下の `.envrc`が読み込まれる。
 4. ここまでを行うと、このリポジトリに移動してきたタイミングで自動的に `.envrc`の中身が読み込まれることになる。
+
+## 開発者に向けて
+### Git関連
+#### ブランチ命名規則
+
+- featureブランチ
+  - feature/issue-<issue_id>_issue-brief-explanation
+
+#### コミットメッセージ
+
+- [Semantic Commit Messages](https://gist.github.com/joshbuchea/6f47e86d2510bce28f8e7f42ae84c716)に従う
+  - 例：issue-123 feat: add login feature
