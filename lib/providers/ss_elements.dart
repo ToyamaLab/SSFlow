@@ -13,20 +13,22 @@ final ssElementsProvider =
 class _SSElementsControllerNotifier extends StateNotifier<List<SSElement>> {
   final Reader _read;
   late CanvasObjectsController canvasObjectsController;
-
+  late WidgetTreeController widgetTreeController;
   _SSElementsControllerNotifier(this._read) : super([]) {
     canvasObjectsController = _read(canvasObjectsProvider.notifier);
+    widgetTreeController = _read(widgetTreeProvider.notifier);
   }
-
   void add(SSElement newElement) {
     state.add(newElement);
     canvasObjectsController.add(newElement);
+    widgetTreeController.generate();
   }
 
   void clear() {
     state.clear();
     canvasObjectsController.clear();
+    widgetTreeController.clear();
   }
 
-  TreeNode get treeNodes => TreeNode.fromList(state);
+  TreeNode<SSElement> get treeNode => TreeNode.fromList(state);
 }
