@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // Project imports:
-import 'package:ssflow/models/draggable_objects/_draggable_objects.dart';
 import 'package:ssflow/providers/_providers.dart';
 import 'package:ssflow/utils/constants/_constants.dart';
 
@@ -34,16 +33,7 @@ class WidgetArea extends ConsumerWidget {
           crossAxisSpacing: 10.0,
           mainAxisSpacing: 10.0,
           crossAxisCount: 2,
-          children: const [
-            SSDraggableColumn(),
-            SSDraggableRow(),
-            SSDraggableRepeatVertical(),
-            SSDraggableRepeatHorizontal(),
-            SSDraggableText(),
-            SSDraggableFunction(),
-            SSDraggableTableData(),
-            SSDraggableBlock(),
-          ],
+          children: ref.watch(draggableObjectsProvider),
         ),
       ),
     );
