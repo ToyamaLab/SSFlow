@@ -8,9 +8,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ssflow/models/draggable_objects/_draggable_objects.dart';
 
 final draggableObjectsProvider =
-    StateNotifierProvider<DraggableObjectsController, List<Widget>>((ref) {
-  return DraggableObjectsController();
-});
+    StateNotifierProvider<DraggableObjectsController, List<Widget>>(
+  (ref) => DraggableObjectsController(),
+);
 
 class DraggableObjectsController extends StateNotifier<List<Widget>> {
   DraggableObjectsController()

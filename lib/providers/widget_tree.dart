@@ -39,7 +39,6 @@ class WidgetTreeController extends StateNotifier<List<Widget>> {
                   offset + t.data!.layoutType,
                   style: TextStyle(color: SSColor.white),
                 ),
-                selected: true,
                 tileColor: SSColor.black,
               )
             : ExpansionTile(
