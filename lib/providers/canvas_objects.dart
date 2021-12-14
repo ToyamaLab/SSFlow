@@ -59,37 +59,34 @@ class CanvasObjectsController extends StateNotifier<List<Widget>> {
   }
 
   void onAcceptWithDetails({
-    DragTargetDetails<SSElement>? details,
-    SSElement? thisData,
+    DragTargetDetails<SSElement>? newData,
+    SSElement? parentElement,
   }) {
-    if (details == null) {
+    if (newData == null) {
       return;
     }
 
-    if (!_canAddObject(thisData?.layoutType)) {
+    SSElement newElement = newData.data;
+    if (!_canAddObject(newElement, parentElement)) {
       return;
     }
-
-    SSElement newElement = details.data;
-    newElement.parentUuid = thisData?.uuid;
+    newElement.parentUuid = parentElement?.uuid;
     _read(ssElementsProvider.notifier).add(newElement);
     final treeNodes = _read(ssElementsProvider.notifier).treeNode;
     logger.info(treeNodes);
   }
 
-  bool _canAddObject(String? layoutType) {
-    if (layoutType == null) {
-      // `parent = null`はparentがrootの意味
+  bool _canAddObject(SSElement newElement, SSElement? parentElement) {
+    final L newType = newElement.layoutType.toLayoutType!;
+    final L? parentType = parentElement?.layoutType.toLayoutType;
+    if ((parentType == null && newType.isLayoutElement()) ||
+        (parentType != null && parentType.isLayoutElement())) {
       return true;
     }
-
-    final L type = layoutType.toLayoutType!;
-    if (type.isLayoutElement()) {
-      return true;
-    } else {
-      EasyLoading.showError('このタイプのオブジェクトには追加できません');
-      return false;
-    }
+    EasyLoading.showError(
+      'このブロックは追加できません。\n親要素にColumnやRowなどのレイアウトブロックを追加してください。',
+    );
+    return false;
   }
 }
 
@@ -148,8 +145,8 @@ class _SizedDraggable extends ConsumerWidget {
         },
         onAcceptWithDetails: (DragTargetDetails<SSElement> details) {
           ref.read(canvasObjectsProvider.notifier).onAcceptWithDetails(
-                details: details,
-                thisData: _newElement,
+                newData: details,
+                parentElement: _newElement,
               );
           ref.read(_willAcceptedProvider.state).state = false;
         },

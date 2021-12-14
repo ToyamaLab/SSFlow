@@ -58,8 +58,8 @@ class CanvasArea extends ConsumerWidget {
             },
             onAcceptWithDetails: (DragTargetDetails<SSElement> details) {
               ref.read(canvasObjectsProvider.notifier).onAcceptWithDetails(
-                    details: details,
-                    thisData: null,
+                    newData: details,
+                    parentElement: null,
                   );
             },
           ),
