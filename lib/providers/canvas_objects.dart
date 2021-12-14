@@ -79,9 +79,8 @@ class CanvasObjectsController extends StateNotifier<List<Widget>> {
   bool _canAddObject(SSElement newElement, SSElement? parentElement) {
     final L newType = newElement.layoutType.toLayoutType!;
     final L? parentType = parentElement?.layoutType.toLayoutType;
-    if (parentType == null && newType.isLayoutElement()) {
-      return true;
-    } else if (parentType != null && parentType.isLayoutElement()) {
+    if ((parentType == null && newType.isLayoutElement()) ||
+        (parentType != null && parentType.isLayoutElement())) {
       return true;
     }
     EasyLoading.showError(
