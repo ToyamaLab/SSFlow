@@ -6,22 +6,25 @@ import 'package:ssflow/models/_models.dart';
 import 'package:ssflow/providers/_providers.dart';
 
 final ssElementsProvider =
-    StateNotifierProvider<_SSElementsControllerNotifier, List<SSElement>>(
-  (ref) => _SSElementsControllerNotifier(ref.read),
+    StateNotifierProvider<_SSElementsController, List<SSElement>>(
+  (ref) => _SSElementsController(ref.read),
 );
 
-class _SSElementsControllerNotifier extends StateNotifier<List<SSElement>> {
+class _SSElementsController extends StateNotifier<List<SSElement>> {
   final Reader _read;
   late CanvasObjectsController canvasObjectsController;
   late WidgetTreeController widgetTreeController;
-  _SSElementsControllerNotifier(this._read) : super([]) {
+  late DraggableObjectsController draggableObjectsController;
+  _SSElementsController(this._read) : super([]) {
     canvasObjectsController = _read(canvasObjectsProvider.notifier);
     widgetTreeController = _read(widgetTreeProvider.notifier);
+    draggableObjectsController = _read(draggableObjectsProvider.notifier);
   }
   void add(SSElement newElement) {
     state.add(newElement);
     canvasObjectsController.add(newElement);
     widgetTreeController.generate();
+    draggableObjectsController.reload();
   }
 
   void clear() {
