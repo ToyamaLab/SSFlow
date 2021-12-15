@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // Project imports:
-import 'package:ssflow/pages/home_page/app_bar/ssflow_logo.dart';
+import 'package:ssflow/pages/home_page/header/header.dart';
 import 'package:ssflow/providers/_providers.dart';
 import 'attribute_area/attribute_area.dart';
-import 'canvas_area/canvas_area.dart';
 import 'left_side_area/left_side_area.dart';
+import 'main_area/main_area.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({
@@ -25,12 +25,12 @@ class HomePage extends ConsumerWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        const SSFlowLogo(),
+        const Header(),
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: const [
             LeftSideArea(),
-            CanvasArea(),
+            MainArea(),
             AttributeArea(),
           ],
         ),
