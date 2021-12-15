@@ -8,8 +8,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ssflow/pages/home_page/header/header.dart';
 import 'package:ssflow/providers/_providers.dart';
 import 'attribute_area/attribute_area.dart';
-import 'canvas_area/canvas_area.dart';
 import 'left_side_area/left_side_area.dart';
+import 'main_area/main_area.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({
@@ -30,7 +30,7 @@ class HomePage extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: const [
             LeftSideArea(),
-            CanvasArea(),
+            MainArea(),
             AttributeArea(),
           ],
         ),
