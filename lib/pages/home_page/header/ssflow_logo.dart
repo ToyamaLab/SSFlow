@@ -32,7 +32,7 @@ class SSFlowLogo extends ConsumerWidget {
               children: <TextSpan>[
                 TextSpan(
                   text: 'SFlow',
-                  style: TextStyle(color: SSColor.white),
+                  style: TextStyle(color: SSColor.offWhite),
                 ),
               ],
             ),

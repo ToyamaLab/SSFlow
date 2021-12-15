@@ -34,12 +34,12 @@ class RunButton extends ConsumerWidget {
               _mode == MainAreaMode.run ? 'Canvas' : 'Run',
               presetFontSizes: ref.read(presetFontSizes),
               style: TextStyle(
-                color: SSColor.white,
+                color: SSColor.offWhite,
                 fontWeight: FontWeight.normal,
               ),
             ),
             style: OutlinedButton.styleFrom(
-              side: BorderSide(color: SSColor.white),
+              side: BorderSide(color: SSColor.offWhite),
               minimumSize: _minimumSize,
             ),
           ),

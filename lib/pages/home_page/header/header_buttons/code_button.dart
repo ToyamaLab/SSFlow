@@ -34,12 +34,12 @@ class CodeButton extends ConsumerWidget {
               _mode == MainAreaMode.code ? 'Canvas' : 'Code',
               presetFontSizes: ref.read(presetFontSizes),
               style: TextStyle(
-                color: SSColor.white,
+                color: SSColor.offWhite,
                 fontWeight: FontWeight.normal,
               ),
             ),
             style: OutlinedButton.styleFrom(
-              side: BorderSide(color: SSColor.white),
+              side: BorderSide(color: SSColor.offWhite),
               minimumSize: _minimumSize,
             ),
           ),
