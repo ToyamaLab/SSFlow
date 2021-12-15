@@ -16,13 +16,9 @@ class CanvasArea extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final _width = ref.watch(windowSize).width / 4 * 1.5;
-    final _height = ref.watch(windowSize).height * 0.9;
-    final _size = Size(_width, _height);
+    final _width = ref.watch(mainAreaSize).width;
+    final _height = ref.watch(mainAreaSize).height;
     final _canvasObjects = ref.watch(canvasObjectsProvider);
-    WidgetsBinding.instance!.addPostFrameCallback(
-      (_) => ref.read(canvasAreaSize.notifier).init(context, size: _size),
-    );
 
     return Container(
       width: _width,
