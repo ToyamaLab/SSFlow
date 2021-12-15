@@ -15,7 +15,9 @@ import 'package:ssflow/providers/main_area_mode.dart';
 import 'package:ssflow/utils/constants/_constants.dart';
 
 class SSFlowLogo extends ConsumerWidget {
-  const SSFlowLogo({Key? key}) : super(key: key);
+  const SSFlowLogo({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

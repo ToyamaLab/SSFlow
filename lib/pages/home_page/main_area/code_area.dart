@@ -8,7 +8,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ssflow/providers/size.dart';
 
 class CodeArea extends ConsumerWidget {
-  const CodeArea({Key? key}) : super(key: key);
+  const CodeArea({
+    Key? key,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return SizedBox(

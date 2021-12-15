@@ -12,7 +12,9 @@ import 'package:ssflow/providers/main_area_mode.dart';
 import 'package:ssflow/utils/constants/ss_color.dart';
 
 class CodeButton extends ConsumerWidget {
-  const CodeButton({Key? key}) : super(key: key);
+  const CodeButton({
+    Key? key,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final _mode = ref.watch(mainAreaMode);
@@ -21,7 +23,7 @@ class CodeButton extends ConsumerWidget {
     return Row(
       children: [
         ButtonTheme(
-          height: ref.watch(headerAreaSize).height * 0.5,
+          height: _size.height * 0.5,
           child: OutlinedButton(
             onPressed: () {
               if (_mode == MainAreaMode.code) {

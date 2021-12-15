@@ -12,7 +12,9 @@ import 'package:ssflow/providers/main_area_mode.dart';
 import 'package:ssflow/utils/constants/ss_color.dart';
 
 class RunButton extends ConsumerWidget {
-  const RunButton({Key? key}) : super(key: key);
+  const RunButton({
+    Key? key,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final _mode = ref.watch(mainAreaMode);
