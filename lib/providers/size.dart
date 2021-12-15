@@ -10,10 +10,13 @@ final windowSize = StateNotifierProvider<_SizeController, Size>(
 final leftSideAreaSize = StateNotifierProvider<_SizeController, Size>(
   (ref) => _SizeController(),
 );
-final canvasAreaSize = StateNotifierProvider<_SizeController, Size>(
+final mainAreaSize = StateNotifierProvider<_SizeController, Size>(
   (ref) => _SizeController(),
 );
 final attributeAreaSize = StateNotifierProvider<_SizeController, Size>(
+  (ref) => _SizeController(),
+);
+final headerAreaSize = StateNotifierProvider<_SizeController, Size>(
   (ref) => _SizeController(),
 );
 
