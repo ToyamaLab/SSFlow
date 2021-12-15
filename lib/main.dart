@@ -6,8 +6,8 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // Project imports:
+import 'package:ssflow/pages/_pages.dart';
 import 'package:ssflow/providers/_providers.dart';
-import 'pages/home_page/home_page.dart';
 
 void main() {
   runApp(const ProviderScope(child: SSFlow()));

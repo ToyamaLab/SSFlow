@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // Project imports:
-import 'package:ssflow/pages/home_page/header/header_buttons/_header_buttons.dart';
-import 'package:ssflow/providers/size.dart';
+import 'package:ssflow/pages/_pages.dart';
+import 'package:ssflow/providers/_providers.dart';
 
 class HeaderButtons extends ConsumerWidget {
   const HeaderButtons({

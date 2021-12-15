@@ -10,7 +10,6 @@ import 'package:ssflow/enum/_enum.dart';
 import 'package:ssflow/models/_models.dart';
 import 'package:ssflow/providers/_providers.dart';
 import 'package:ssflow/utils/_utils.dart';
-import 'package:ssflow/utils/constants/_constants.dart';
 
 final canvasObjectsProvider =
     StateNotifierProvider<CanvasObjectsController, List<Widget>>(

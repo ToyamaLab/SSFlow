@@ -8,8 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 // Project imports:
 import 'package:ssflow/enum/_enum.dart';
 import 'package:ssflow/providers/_providers.dart';
-import 'package:ssflow/providers/main_area_mode.dart';
-import 'package:ssflow/utils/constants/ss_color.dart';
+import 'package:ssflow/utils/_utils.dart';
 
 class CodeButton extends ConsumerWidget {
   const CodeButton({
