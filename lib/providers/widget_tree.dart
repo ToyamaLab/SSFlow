@@ -6,8 +6,8 @@ import 'package:riverpod/riverpod.dart';
 
 // Project imports:
 import 'package:ssflow/models/_models.dart';
-import 'package:ssflow/providers/ss_elements.dart';
-import 'package:ssflow/utils/constants/_constants.dart';
+import 'package:ssflow/providers/_providers.dart';
+import 'package:ssflow/utils/_utils.dart';
 
 final widgetTreeProvider =
     StateNotifierProvider<WidgetTreeController, List<Widget>>(

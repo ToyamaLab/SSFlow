@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 // Project imports:
 import 'package:ssflow/enum/_enum.dart';
 import 'package:ssflow/models/_models.dart';
-import 'package:ssflow/utils/constants/_constants.dart';
+import 'package:ssflow/utils/_utils.dart';
 
 class DraggableObject extends StatelessWidget {
   final L l;

@@ -1,5 +1,6 @@
 export 'canvas_objects.dart';
 export 'draggable_objects.dart';
+export 'main_area_mode.dart';
 export 'navigator.dart';
 export 'preset_font_sizes.dart';
 export 'size.dart';

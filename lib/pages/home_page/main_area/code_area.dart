@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // Project imports:
-import 'package:ssflow/providers/size.dart';
+import 'package:ssflow/providers/_providers.dart';
 
 class CodeArea extends ConsumerWidget {
   const CodeArea({

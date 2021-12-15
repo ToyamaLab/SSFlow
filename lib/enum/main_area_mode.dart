@@ -2,8 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import 'package:ssflow/pages/home_page/main_area/_main_area.dart';
-import 'package:ssflow/pages/home_page/main_area/canvas_area.dart';
+import 'package:ssflow/pages/_pages.dart';
 
 enum MainAreaMode {
   canvas,

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // Project imports:
-import 'package:ssflow/models/draggable_objects/_draggable_objects.dart';
+import 'package:ssflow/models/_models.dart';
 
 final draggableObjectsProvider =
     StateNotifierProvider<DraggableObjectsController, List<Widget>>(
