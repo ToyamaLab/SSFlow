@@ -8,8 +8,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ssflow/providers/_providers.dart';
 import 'package:ssflow/utils/_utils.dart';
 
-class WidgetArea extends ConsumerWidget {
-  const WidgetArea({Key? key}) : super(key: key);
+class DraggableObjectArea extends ConsumerWidget {
+  const DraggableObjectArea({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
