@@ -24,12 +24,11 @@ class RunButton extends ConsumerWidget {
         ButtonTheme(
           height: ref.watch(headerAreaSize).height * 0.5,
           child: OutlinedButton(
-            onPressed: () {
-              if (_mode == MainAreaMode.run) {
-                ref.read(mainAreaMode.notifier).update(MainAreaMode.canvas);
-              } else {
-                ref.read(mainAreaMode.notifier).update(MainAreaMode.run);
-              }
+            onPressed: () async {
+              // 最終的にはローカルのHTMLファイルをロードしてくる #67
+              await ref
+                  .read(mainAreaMode.notifier)
+                  .launchUrl('https://google.com');
             },
             child: AutoSizeText(
               _mode == MainAreaMode.run ? 'Canvas' : 'Run',

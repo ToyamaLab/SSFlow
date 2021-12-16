@@ -14,7 +14,7 @@ extension MainAreaModeExtension on MainAreaMode {
   static final Map<MainAreaMode, Widget> widgets = {
     MainAreaMode.canvas: const CanvasArea(),
     MainAreaMode.code: const CodeArea(),
-    MainAreaMode.run: const RunArea(),
+    MainAreaMode.run: const SizedBox(),
   };
 
   Widget get widget => widgets[this]!;
