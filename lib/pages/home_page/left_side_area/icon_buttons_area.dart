@@ -7,7 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 // Project imports:
 import 'package:ssflow/enum/_enum.dart';
 import 'package:ssflow/providers/_providers.dart';
-import 'package:ssflow/utils/constants/_constants.dart';
+import 'package:ssflow/utils/_utils.dart';
 
 class IconButtonsArea extends ConsumerWidget {
   const IconButtonsArea({Key? key}) : super(key: key);
@@ -22,7 +22,7 @@ class IconButtonsArea extends ConsumerWidget {
     );
 
     return SizedBox(
-      width: ref.watch(leftSideAreaSize).width / 3.0,
+      width: _width,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
