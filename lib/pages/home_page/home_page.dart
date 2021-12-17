@@ -14,19 +14,24 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        const Header(),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: const [
-            LeftSideArea(),
-            MainArea(),
-            AttributeArea(),
-          ],
-        ),
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          const Header(),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: const [
+                LeftSideArea(),
+                MainArea(),
+                AttributeArea(),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
