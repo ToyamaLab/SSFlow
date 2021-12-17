@@ -25,8 +25,19 @@ class SSFlow extends ConsumerWidget {
       title: 'SSFlow',
       theme: ThemeData(primarySwatch: Colors.blue),
       navigatorKey: ref.watch(navigatorKeyProvider),
-      home: const Scaffold(
-        body: HomePage(),
+      home: Builder(
+        builder: (context) {
+          return ProviderScope(
+            overrides: [
+              windowSize.overrideWithValue(
+                StateController(MediaQuery.of(context).size),
+              ),
+            ],
+            child: const Scaffold(
+              body: HomePage(),
+            ),
+          );
+        },
       ),
       builder: EasyLoading.init(),
     );

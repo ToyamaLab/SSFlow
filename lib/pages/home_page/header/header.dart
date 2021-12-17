@@ -16,15 +16,9 @@ class Header extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final _width = ref.watch(windowSize).width;
-    final _height = ref.watch(windowSize).height * 0.1;
-    final _size = Size(_width, _height);
-    WidgetsBinding.instance!.addPostFrameCallback(
-      (_) => ref.read(headerAreaSize.notifier).init(context, size: _size),
-    );
-
     return Container(
-      height: _height,
+      width: ref.watch(headerAreaSize).width,
+      height: ref.watch(headerAreaSize).height,
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
