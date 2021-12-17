@@ -13,16 +13,10 @@ class IconButtonsArea extends ConsumerWidget {
   const IconButtonsArea({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final _width = ref.watch(leftSideAreaSize).width / 3.0;
-    final _height = ref.watch(leftSideAreaSize).height;
     final _mode = ref.watch(leftSideAreaMode);
-    final _size = Size(_width, _height);
-    WidgetsBinding.instance!.addPostFrameCallback(
-      (_) => ref.read(iconButtonsAreaSize.notifier).init(context, size: _size),
-    );
 
     return SizedBox(
-      width: _width,
+      width: ref.watch(iconButtonsAreaSize).width,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [

@@ -15,17 +15,10 @@ class AttributeArea extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final _width = ref.watch(windowSize).width / 4;
-    final _height = ref.watch(windowSize).height * 0.9;
-    final _size = Size(_width, _height);
-    WidgetsBinding.instance!.addPostFrameCallback(
-      (_) => ref.read(attributeAreaSize.notifier).init(context, size: _size),
-    );
-
     return Center(
       child: Container(
-        width: _width,
-        height: _height,
+        width: ref.watch(attributeAreaSize).width,
+        height: ref.watch(attributeAreaSize).height,
         decoration: BoxDecoration(
           border: Border(
             left: BorderSide(
