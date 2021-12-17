@@ -65,27 +65,30 @@ class CanvasObjectsController extends StateNotifier<List<Widget>> {
       return;
     }
 
-    SSElement newElement = newData.data;
-    if (!_canAddObject(newElement, parentElement)) {
+    if (!_canAddObject(parentElement)) {
       return;
     }
+
+    SSElement newElement = newData.data;
     newElement.parentUuid = parentElement?.uuid;
     _read(ssElementsProvider.notifier).add(newElement);
     final treeNodes = _read(ssElementsProvider.notifier).treeNode;
     logger.info(treeNodes);
   }
 
-  bool _canAddObject(SSElement newElement, SSElement? parentElement) {
-    final L newType = newElement.layoutType.toLayoutType!;
-    final L? parentType = parentElement?.layoutType.toLayoutType;
-    if ((parentType == null && newType.isLayoutElement()) ||
-        (parentType != null && parentType.isLayoutElement())) {
+  bool _canAddObject(SSElement? parentElement) {
+    if (parentElement == null) {
       return true;
     }
-    EasyLoading.showError(
-      'このブロックは追加できません。\n親要素にColumnやRowなどのレイアウトブロックを追加してください。',
-    );
-    return false;
+
+    if (parentElement.layoutType.toLayoutType!.isLayoutElement()) {
+      return true;
+    } else {
+      EasyLoading.showError(
+        'このブロックは追加できません。\n親要素にはレイアウトブロックを追加してください。',
+      );
+      return false;
+    }
   }
 }
 
