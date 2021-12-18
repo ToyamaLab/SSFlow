@@ -30,7 +30,12 @@ class DraggableObject extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Text(l.value),
+              Text(
+                l.value,
+                style: const TextStyle(
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
               Icon(l.iconData),
             ],
           ),
