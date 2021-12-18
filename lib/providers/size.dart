@@ -32,7 +32,7 @@ final windowSize = StateProvider<Size>(
 
 class _SizeController extends StateNotifier<Size> {
   _SizeController.rightSideArea(_Watcher _watch) : super(Size.zero) {
-    final _width = _watch(windowSize).width * 0.25;
+    final _width = _watch(windowSize).width * 2.5 / 10;
     final _height = _watch(windowSize).height * 0.9;
     state = Size(_width, _height);
   }
@@ -42,17 +42,17 @@ class _SizeController extends StateNotifier<Size> {
     state = Size(_width, _height);
   }
   _SizeController.iconButtonsArea(_Watcher _watch) : super(Size.zero) {
-    final _width = _watch(windowSize).width / 8;
+    final _width = _watch(windowSize).width * 0.5 / 10;
     final _height = _watch(windowSize).height * 0.9;
     state = Size(_width, _height);
   }
   _SizeController.leftSideArea(_Watcher _watch) : super(Size.zero) {
-    final _width = _watch(windowSize).width * 3 / 8;
+    final _width = _watch(windowSize).width * 2.5 / 10;
     final _height = _watch(windowSize).height * 0.9;
     state = Size(_width, _height);
   }
   _SizeController.mainArea(_Watcher _watch) : super(Size.zero) {
-    final _width = _watch(windowSize).width * 3 / 8;
+    final _width = _watch(windowSize).width * 5 / 10;
     final _height = _watch(windowSize).height * 0.9;
     state = Size(_width, _height);
   }

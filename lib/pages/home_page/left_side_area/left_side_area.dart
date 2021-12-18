@@ -18,16 +18,32 @@ class LeftSideArea extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final _leftWidth = ref.watch(leftSideAreaSize).width;
+    final _iconWidth = ref.watch(iconButtonsAreaSize).width;
     return Material(
       child: Container(
-        width: ref.watch(leftSideAreaSize).width,
+        width: _leftWidth,
         height: ref.watch(leftSideAreaSize).height,
         color: SSColor.black,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const IconButtonsArea(),
-            ref.watch(leftSideAreaMode).widget,
+            Material(
+              child: Container(
+                width: _leftWidth - _iconWidth,
+                decoration: BoxDecoration(
+                  border: Border.symmetric(
+                    vertical: BorderSide(
+                      color: SSColor.grey,
+                      width: 1.0,
+                    ),
+                  ),
+                  color: SSColor.black,
+                ),
+                child: ref.watch(leftSideAreaMode).widget,
+              ),
+            ),
           ],
         ),
       ),
