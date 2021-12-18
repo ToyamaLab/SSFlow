@@ -7,17 +7,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 // Project imports:
 import 'package:ssflow/providers/_providers.dart';
 
-class CodeArea extends ConsumerWidget {
-  const CodeArea({
+class AttributeArea extends ConsumerWidget {
+  const AttributeArea({
     Key? key,
   }) : super(key: key);
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return SizedBox(
-      width: ref.watch(mainAreaSize).width,
-      child: const Center(
-        child: Text('Code Area'),
-      ),
+      width: ref.watch(rightSideAreaSize).width,
+      height: ref.watch(rightSideAreaSize).height,
     );
   }
 }

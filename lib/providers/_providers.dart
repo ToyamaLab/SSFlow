@@ -1,9 +1,11 @@
 export 'canvas_objects.dart';
+export 'code.dart';
 export 'draggable_objects.dart';
 export 'left_side_area_mode.dart';
 export 'main_area_mode.dart';
 export 'navigator.dart';
 export 'preset_font_sizes.dart';
+export 'right_side_area_mode.dart';
 export 'size.dart';
 export 'ss_elements.dart';
 export 'widget_tree.dart';

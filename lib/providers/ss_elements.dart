@@ -15,22 +15,26 @@ class _SSElementsController extends StateNotifier<List<SSElement>> {
   late CanvasObjectsController canvasObjectsController;
   late WidgetTreeController widgetTreeController;
   late DraggableObjectsController draggableObjectsController;
+  late CodeController codeController;
   _SSElementsController(this._read) : super([]) {
     canvasObjectsController = _read(canvasObjectsProvider.notifier);
     widgetTreeController = _read(widgetTreeProvider.notifier);
     draggableObjectsController = _read(draggableObjectsProvider.notifier);
+    codeController = _read(codeProvider.notifier);
   }
   void add(SSElement newElement) {
     state.add(newElement);
     canvasObjectsController.add(newElement);
     widgetTreeController.generate();
     draggableObjectsController.reload();
+    codeController.generate();
   }
 
   void clear() {
     state.clear();
     canvasObjectsController.clear();
     widgetTreeController.clear();
+    codeController.clear();
   }
 
   TreeNode<SSElement> get treeNode => TreeNode.fromList(state);

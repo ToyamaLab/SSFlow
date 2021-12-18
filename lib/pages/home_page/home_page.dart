@@ -26,7 +26,7 @@ class HomePage extends ConsumerWidget {
               children: const [
                 LeftSideArea(),
                 MainArea(),
-                AttributeArea(),
+                RightSideArea(),
               ],
             ),
           ),

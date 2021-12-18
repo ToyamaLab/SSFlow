@@ -16,7 +16,7 @@ class CodeButton extends ConsumerWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final _mode = ref.watch(mainAreaMode);
+    final _mode = ref.watch(rightSideAreaMode);
     final _size = ref.watch(headerAreaSize);
     final _minimumSize = Size(_size.width * 0.1, _size.height * 0.5);
     return Row(
@@ -25,14 +25,18 @@ class CodeButton extends ConsumerWidget {
           height: _size.height * 0.5,
           child: OutlinedButton(
             onPressed: () {
-              if (_mode == MainAreaMode.code) {
-                ref.read(mainAreaMode.notifier).update(MainAreaMode.canvas);
+              if (_mode == RightSideAreaMode.code) {
+                ref
+                    .read(rightSideAreaMode.notifier)
+                    .update(RightSideAreaMode.attribute);
               } else {
-                ref.read(mainAreaMode.notifier).update(MainAreaMode.code);
+                ref
+                    .read(rightSideAreaMode.notifier)
+                    .update(RightSideAreaMode.code);
               }
             },
             child: AutoSizeText(
-              _mode == MainAreaMode.code ? 'Canvas' : 'Code',
+              _mode == RightSideAreaMode.code ? 'Attribute' : 'Code',
               presetFontSizes: ref.read(presetFontSizes),
               style: TextStyle(
                 color: SSColor.offWhite,
