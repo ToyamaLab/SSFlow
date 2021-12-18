@@ -6,8 +6,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 typedef _Watcher = T Function<T>(AlwaysAliveProviderListenable<T>);
 
-final attributeAreaSize = StateNotifierProvider<_SizeController, Size>(
-  (ref) => _SizeController.attributeArea(ref.watch),
+final rightSideAreaSize = StateNotifierProvider<_SizeController, Size>(
+  (ref) => _SizeController.rightSideArea(ref.watch),
   dependencies: [windowSize],
 );
 final headerAreaSize = StateNotifierProvider<_SizeController, Size>(
@@ -31,7 +31,7 @@ final windowSize = StateProvider<Size>(
 );
 
 class _SizeController extends StateNotifier<Size> {
-  _SizeController.attributeArea(_Watcher _watch) : super(Size.zero) {
+  _SizeController.rightSideArea(_Watcher _watch) : super(Size.zero) {
     final _width = _watch(windowSize).width * 0.25;
     final _height = _watch(windowSize).height * 0.9;
     state = Size(_width, _height);
