@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 // Flutter imports:
 import 'package:flutter/material.dart';
 
@@ -26,7 +28,7 @@ class DraggableObjectsController extends StateNotifier<List<Widget>> {
         ]);
 
   void reload() {
-    state = const [
+    state = [
       SSDraggableColumn(),
       SSDraggableRow(),
       SSDraggableRepeatVertical(),
