@@ -18,28 +18,24 @@ class CodeArea extends ConsumerWidget {
     final _height = ref.watch(rightSideAreaSize).height;
     final _text = ref.watch(codeProvider);
 
-    return SizedBox(
-      width: _width,
-      height: _height,
-      child: Stack(
-        children: [
-          Positioned(
-            left: _width * 0.05,
-            top: _height * 0.1,
-            width: _width * 0.9,
-            height: _height * 0.9,
-            child: SelectableText(
-              _text,
-              style: TextStyle(
-                color: SSColor.offWhite,
-                fontSize: 16,
-                overflow: TextOverflow.ellipsis,
-              ),
+    return Stack(
+      children: [
+        Positioned(
+          left: _width * 0.05,
+          top: _height * 0.1,
+          width: _width * 0.9,
+          height: _height * 0.9,
+          child: SelectableText(
+            _text,
+            style: TextStyle(
+              color: SSColor.offWhite,
+              fontSize: 16,
+              overflow: TextOverflow.ellipsis,
             ),
           ),
-          _CodeButtons(_text),
-        ],
-      ),
+        ),
+        _CodeButtons(_text),
+      ],
     );
   }
 }

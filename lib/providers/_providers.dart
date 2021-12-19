@@ -8,4 +8,5 @@ export 'preset_font_sizes.dart';
 export 'right_side_area_mode.dart';
 export 'size.dart';
 export 'ss_elements.dart';
+export 'text_editing_controller.dart';
 export 'widget_tree.dart';
