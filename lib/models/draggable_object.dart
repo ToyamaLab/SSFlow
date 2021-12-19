@@ -32,8 +32,9 @@ class DraggableObject extends StatelessWidget {
             children: [
               Text(
                 l.value,
-                style: const TextStyle(
+                style: TextStyle(
                   overflow: TextOverflow.ellipsis,
+                  color: SSColor.black,
                 ),
               ),
               Icon(l.iconData),
@@ -55,7 +56,7 @@ class DraggableObject extends StatelessWidget {
           child: Center(
             child: Text(
               l.value,
-              style: TextStyle(color: SSColor.grey),
+              style: TextStyle(color: SSColor.black),
             ),
           ),
         ),

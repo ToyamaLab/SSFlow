@@ -35,10 +35,7 @@ class WidgetTreeController extends StateNotifier<List<Widget>> {
       if (t.data != null) {
         final tile = t.children.isEmpty
             ? ListTile(
-                title: Text(
-                  offset + t.data!.layoutType,
-                  style: TextStyle(color: SSColor.white),
-                ),
+                title: Text(offset + t.data!.layoutType),
                 tileColor: SSColor.black,
               )
             : ExpansionTile(
