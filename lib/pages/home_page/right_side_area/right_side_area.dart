@@ -17,6 +17,8 @@ class RightSideArea extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
+      width: ref.watch(rightSideAreaSize).width,
+      height: ref.watch(rightSideAreaSize).height,
       decoration: BoxDecoration(
         border: Border(
           left: BorderSide(
