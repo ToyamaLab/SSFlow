@@ -12,6 +12,7 @@ import 'package:window_size/window_size.dart';
 // Project imports:
 import 'package:ssflow/pages/_pages.dart';
 import 'package:ssflow/providers/_providers.dart';
+import 'package:ssflow/utils/_utils.dart';
 
 void main() {
   runApp(const ProviderScope(child: SSFlow()));
@@ -31,7 +32,15 @@ class SSFlow extends ConsumerWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'SSFlow',
-      theme: ThemeData(primarySwatch: Colors.blue),
+      theme: ThemeData(
+        textTheme: Theme.of(context)
+            .textTheme
+            .copyWith(bodyText2: const TextStyle(fontSize: 16))
+            .apply(
+              bodyColor: SSColor.offWhite,
+              displayColor: SSColor.offWhite,
+            ),
+      ),
       navigatorKey: ref.watch(navigatorKeyProvider),
       home: Builder(
         builder: (context) {
