@@ -35,7 +35,13 @@ class SSFlow extends ConsumerWidget {
       theme: ThemeData(
         textTheme: Theme.of(context)
             .textTheme
-            .copyWith(bodyText2: const TextStyle(fontSize: 16))
+            .copyWith(
+              bodyText1: const TextStyle(fontSize: 20),
+              bodyText2: const TextStyle(
+                fontSize: 16,
+                overflow: TextOverflow.ellipsis,
+              ),
+            )
             .apply(
               bodyColor: SSColor.offWhite,
               displayColor: SSColor.offWhite,
