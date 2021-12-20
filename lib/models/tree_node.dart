@@ -73,6 +73,26 @@ class TreeNode<T extends WithUuid> {
     return null;
   }
 
+  List<String> childrenUuids(String uuid) {
+    TreeNode<T> _root = findByUuid(uuid)!;
+    List<String> result = [_root.data!.uuid];
+
+    _root.children.forEach((uuid, node) {
+      if (!result.contains(node.data!.uuid)) {
+        result.add(node.data!.uuid);
+      }
+      if (node.children.isNotEmpty) {
+        final _uuids = childrenUuids(node.data!.uuid);
+        for (String _uuid in _uuids) {
+          if (!result.contains(_uuid)) {
+            result.add(_uuid);
+          }
+        }
+      }
+    });
+    return result;
+  }
+
   List<String> toStringList() {
     List<String> result = <String>[];
 

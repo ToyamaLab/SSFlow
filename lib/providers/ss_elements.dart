@@ -1,3 +1,6 @@
+// Flutter imports:
+import 'package:flutter/material.dart';
+
 // Package imports:
 import 'package:riverpod/riverpod.dart';
 
@@ -29,6 +32,42 @@ class _SSElementsController extends StateNotifier<List<SSElement>> {
     draggableObjectsController.reload();
     codeController.generate();
   }
+
+  void delete(SSElement element) async {
+    final context = _read(navigatorKeyProvider).currentContext!;
+    showDialog(
+      context: context,
+      builder: (_) {
+        return AlertDialog(
+          title: const Text('このブロックを削除しますか？'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                final _node = _read(ssElementsProvider.notifier).treeNode;
+                List<String> _uuids = _node.childrenUuids(element.uuid);
+                for (String _uuid in _uuids) {
+                  _remove(_uuid);
+                  _read(canvasObjectsProvider.notifier).remove(_uuid);
+                }
+                _read(selectedUuid.state).state = '';
+                widgetTreeController.generate();
+                codeController.generate();
+                Navigator.pop(context);
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _remove(String uuid) =>
+      state.removeWhere((element) => element.uuid == uuid);
 
   void clear() {
     state.clear();

@@ -76,6 +76,13 @@ class CanvasObjectsController extends StateNotifier<List<Widget>> {
     logger.info(treeNodes);
   }
 
+  void remove(String uuid) {
+    state.removeWhere(
+      (widget) => (widget as _SizedDraggable)._newElement.uuid == uuid,
+    );
+    state = [...state];
+  }
+
   bool _canAddObject(SSElement? parentElement) {
     if (parentElement == null) {
       return true;
@@ -109,10 +116,9 @@ class _SizedDraggable extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return GestureDetector(
-      onTap: () {
-        logger.info('onTap newElement: $_newElement');
-        ref.read(selectedUuid.state).state = _newElement.uuid;
-      },
+      onTap: () => ref.read(selectedUuid.state).state = _newElement.uuid,
+      onSecondaryTap: () =>
+          ref.read(ssElementsProvider.notifier).delete(_newElement),
       child: DragTarget(
         builder: (
           BuildContext context,
