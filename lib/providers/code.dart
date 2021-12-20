@@ -23,6 +23,7 @@ class CodeController extends StateNotifier<String> {
   void generate() {
     final TreeNode<SSElement> node =
         _read(ssElementsProvider.notifier).treeNode;
+    _read(queryTableProvider).clear();
     state = _generateSSQL(node);
   }
 
@@ -44,8 +45,7 @@ class CodeController extends StateNotifier<String> {
   String _mediaPart() => 'GENERATE HTML\n';
 
   String _dbPart() {
-    // todo ref: #75 必要なDBの情報を持ってくる
-    const _table = 'employee';
+    final _table = _read(queryTableProvider).join(', ');
     return '\nFROM $_table';
   }
 
@@ -54,6 +54,11 @@ class CodeController extends StateNotifier<String> {
     String separator = '',
   }) {
     String result = '';
+    if (node.data != null &&
+        node.data!.layoutType.toLayoutType! == L.tableData) {
+      _read(queryTableProvider.notifier).add(node.data!.body.split('.').first);
+    }
+
     if (node.children.isEmpty) {
       return _extractData(node.data!) + separator;
     }
@@ -116,4 +121,21 @@ class CodeController extends StateNotifier<String> {
   String _removeSeparator(String str, String separator) {
     return str.substring(0, str.length - separator.length);
   }
+}
+
+final queryTableProvider =
+    StateNotifierProvider<_QueryDBController, List<String>>(
+  (ref) => _QueryDBController(),
+);
+
+class _QueryDBController extends StateNotifier<List<String>> {
+  _QueryDBController() : super([]);
+
+  void add(String table) {
+    if (!state.contains(table)) {
+      state.add(table);
+    }
+  }
+
+  void clear() => state = [];
 }
