@@ -47,10 +47,7 @@ class DraggableObject extends ConsumerWidget {
               children: [
                 Text(
                   l.value,
-                  style: TextStyle(
-                    overflow: TextOverflow.ellipsis,
-                    color: SSColor.black,
-                  ),
+                  style: TextStyle(color: SSColor.black),
                 ),
                 Icon(l.iconData),
               ],

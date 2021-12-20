@@ -35,10 +35,6 @@ class _SSElementsController extends StateNotifier<List<SSElement>> {
     canvasObjectsController.clear();
     widgetTreeController.clear();
     codeController.clear();
-    // TODO ss_element_dataのclearもおこなう(不要な分だけ) (優先度低)
-    // storageが増えすぎてしまい、メモリ無駄にしようしてしまう可能性がある
-    // draggable objectsのreloadですべて更新ではなく、最低限の更新にすれば
-    // ひとまずは問題なさそう
   }
 
   TreeNode<SSElement> get treeNode => TreeNode.fromList(state);
