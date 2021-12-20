@@ -59,11 +59,6 @@ class _CodeButtons extends ConsumerWidget {
             icon: const Icon(Icons.copy),
             color: SSColor.offWhite,
           ),
-          IconButton(
-            onPressed: () => ref.read(codeProvider.notifier).generate(),
-            icon: const Icon(Icons.refresh),
-            color: SSColor.offWhite,
-          ),
         ],
       ),
     );

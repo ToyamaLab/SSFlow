@@ -9,6 +9,7 @@ class SSDraggableText extends DraggableObject {
   const SSDraggableText({Key? key})
       : super(
           L.text,
+          body: "'text'",
           key: key,
         );
 }

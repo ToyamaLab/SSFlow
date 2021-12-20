@@ -28,6 +28,7 @@ class DraggableObjectsController extends StateNotifier<List<Widget>> {
         ]);
 
   void reload() {
+    // todo #85 DraggableObjectsControllerのreloadでは必要な分だけ更新するようにする
     state = [
       SSDraggableColumn(),
       SSDraggableRow(),

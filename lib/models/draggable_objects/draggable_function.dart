@@ -9,6 +9,7 @@ class SSDraggableFunction extends DraggableObject {
   const SSDraggableFunction({Key? key})
       : super(
           L.function,
+          body: 'func()',
           key: key,
         );
 }

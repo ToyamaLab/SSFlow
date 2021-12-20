@@ -111,6 +111,7 @@ class _SizedDraggable extends ConsumerWidget {
     return GestureDetector(
       onTap: () {
         logger.info('onTap newElement: $_newElement');
+        ref.read(selectedUuid.state).state = _newElement.uuid;
       },
       child: DragTarget(
         builder: (
@@ -143,6 +144,7 @@ class _SizedDraggable extends ConsumerWidget {
               _height,
               opacity: 0.2,
             ),
+            onDragStarted: () => ref.read(selectedUuid.state).state = '',
           );
         },
         onAcceptWithDetails: (DragTargetDetails<SSElement> details) {
@@ -183,16 +185,18 @@ class _SizedContainer extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final _type = _newElement.layoutType.toLayoutType!;
     final _willAccepted = ref.watch(_willAcceptedProvider);
+    final _isSelected = ref.watch(selectedUuid) == _newElement.uuid;
+    final _willHighlight = _willAccepted || _isSelected;
 
     return Container(
       width: _width,
       height: _height,
       decoration: BoxDecoration(
         border: Border.all(
-          color: _willAccepted ? SSColor.primary : Colors.black,
-          width: _willAccepted ? 5.0 : 1.0,
+          color: _willHighlight ? SSColor.primary : Colors.black,
+          width: _willHighlight ? 5.0 : 1.0,
         ),
-        color: _willAccepted
+        color: _willHighlight
             ? SSColor.white
             : opacity != null
                 ? SSColor.offWhite.withOpacity(opacity!)

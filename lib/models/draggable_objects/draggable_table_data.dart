@@ -9,6 +9,7 @@ class SSDraggableTableData extends DraggableObject {
   const SSDraggableTableData({Key? key})
       : super(
           L.tableData,
+          body: 'table.column',
           key: key,
         );
 }

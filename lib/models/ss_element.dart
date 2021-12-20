@@ -10,11 +10,11 @@ class SSElement with WithUuid {
   final String layoutType;
 
   /// textなら文字の中身など
-  String? body;
+  String body;
 
   SSElement(
     this.layoutType, {
-    this.body,
+    this.body = '',
   }) {
     uuid = const Uuid().v4();
   }
