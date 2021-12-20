@@ -10,9 +10,11 @@ class DraggableObject extends StatelessWidget {
   final L l;
   final double width;
   final double height;
+  final String body;
 
   const DraggableObject(
     this.l, {
+    this.body = '',
     this.width = 100.0,
     this.height = 100.0,
     Key? key,
