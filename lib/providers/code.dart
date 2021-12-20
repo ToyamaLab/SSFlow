@@ -108,7 +108,7 @@ class CodeController extends StateNotifier<String> {
     if (type.isLayoutElement()) {
       return '';
     } else {
-      return e.body ??= type.toString();
+      return e.body;
     }
   }
 

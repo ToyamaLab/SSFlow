@@ -18,10 +18,23 @@ class AttributeArea extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
-      children: const [
-        _IdentityAndType(),
-        _DataSettings(),
-      ],
+      children: (ref.watch(selectedUuid).isEmpty)
+          ? const [_EmptyInfoText()]
+          : const [
+              _IdentityAndType(),
+              _DataSettings(),
+            ],
+    );
+  }
+}
+
+class _EmptyInfoText extends ConsumerWidget {
+  const _EmptyInfoText({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Padding(
+      padding: EdgeInsets.only(top: ref.watch(rightSideAreaSize).height * 0.01),
+      child: const Text('選択されたブロックのデータが表示されます'),
     );
   }
 }
@@ -111,8 +124,8 @@ class _DataSettings extends ConsumerWidget {
         _children = [
           const _HeadingText('Data Settings'),
           Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
               const _ItemText('Data:'),
               _FormField(
                 controller: _dataController,
@@ -127,35 +140,35 @@ class _DataSettings extends ConsumerWidget {
       case L.tableData:
         _children = [
           const _HeadingText('Data Settings'),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const _ItemText('Table Name:'),
-                      _FormField(
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const _ItemText('Table Name:'),
+              _FormField(
                 controller: _tableController,
                 onSaved: (newTable) =>
                     ref.read(_selectedElementProvider.notifier).updateTableData(
                           table: newTable ??= '',
                           column: _columnController.text,
                         ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: ref.watch(rightSideAreaSize).height * 0.01),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const _ItemText('Column Name:'),
-                      _FormField(
+              ),
+            ],
+          ),
+          SizedBox(height: ref.watch(rightSideAreaSize).height * 0.01),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const _ItemText('Column Name:'),
+              _FormField(
                 controller: _columnController,
                 onSaved: (newColumn) =>
                     ref.read(_selectedElementProvider.notifier).updateTableData(
                           table: _tableController.text,
                           column: newColumn ??= '',
                         ),
-                      ),
-                    ],
-                  ),
+              ),
+            ],
+          ),
         ];
         break;
       default:
@@ -170,7 +183,7 @@ class _DataSettings extends ConsumerWidget {
       width: ref.watch(rightSideAreaSize).width,
       padding: EdgeInsets.only(top: ref.watch(rightSideAreaSize).height * 0.01),
       child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: _children,
       ),
     );
