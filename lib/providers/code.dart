@@ -59,7 +59,7 @@ class CodeController extends StateNotifier<String> {
       _read(queryTableProvider.notifier).add(node.data!.body.split('.').first);
     }
 
-    if (node.children.isEmpty) {
+    if (node.data != null && node.children.isEmpty) {
       return _extractData(node.data!) + separator;
     }
 
