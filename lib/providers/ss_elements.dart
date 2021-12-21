@@ -72,6 +72,7 @@ class _SSElementsController extends StateNotifier<List<SSElement>> {
   void clear() {
     state.clear();
     canvasObjectsController.clear();
+    _read(selectedUuid.state).state = '';
     widgetTreeController.clear();
     codeController.clear();
   }
