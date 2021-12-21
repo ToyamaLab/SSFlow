@@ -246,7 +246,11 @@ class _InfoText extends ConsumerWidget {
       width: ref.watch(rightSideAreaSize).width * 0.6,
       child: Align(
         alignment: Alignment.centerLeft,
-        child: SelectableText(text, maxLines: 3),
+        child: SelectableText(
+          text,
+          minLines: 1,
+          maxLines: 3,
+        ),
       ),
     );
   }
@@ -278,6 +282,7 @@ class _FormField extends ConsumerWidget {
           child: TextFormField(
             controller: controller,
             onSaved: onSaved,
+            minLines: 1,
             maxLines: 3,
             decoration: InputDecoration(
               fillColor: SSColor.darkGrey,
