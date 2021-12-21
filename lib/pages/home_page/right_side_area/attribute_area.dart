@@ -246,7 +246,7 @@ class _InfoText extends ConsumerWidget {
       width: ref.watch(rightSideAreaSize).width * 0.6,
       child: Align(
         alignment: Alignment.centerLeft,
-        child: Text(text, maxLines: 3),
+        child: SelectableText(text, maxLines: 3),
       ),
     );
   }
