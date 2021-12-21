@@ -25,14 +25,7 @@ class CodeArea extends ConsumerWidget {
           top: _height * 0.1,
           width: _width * 0.9,
           height: _height * 0.9,
-          child: SelectableText(
-            _text,
-            style: TextStyle(
-              color: SSColor.offWhite,
-              fontSize: 16,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
+          child: SelectableText(_text),
         ),
         _CodeButtons(_text),
       ],
