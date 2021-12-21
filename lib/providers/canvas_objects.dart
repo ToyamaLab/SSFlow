@@ -69,8 +69,12 @@ class CanvasObjectsController extends StateNotifier<List<Widget>> {
       return;
     }
 
-    SSElement newElement = newData.data;
-    newElement.parentUuid = parentElement?.uuid;
+    final _elementProvider =
+        _read(ssElementProviders(newData.data.uuid).notifier);
+    SSElement newElement = _elementProvider.assignAfterAndParentUuid(
+      element: newData.data,
+      parentUuid: parentElement?.uuid,
+    );
     _read(ssElementsProvider.notifier).add(newElement);
     final treeNodes = _read(ssElementsProvider.notifier).treeNode;
     logger.info(treeNodes);

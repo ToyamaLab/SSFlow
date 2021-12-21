@@ -37,20 +37,48 @@ class _SSElementController extends StateNotifier<SSElement> {
     });
   }
 
-  updateData(String newData) {
+  void updateData(String newData) {
     SSElement _element = _storage.element(uuid: uuid);
     _element.body = newData;
     _storage.update(uuid: uuid, element: _element);
     _read(codeProvider.notifier).generate();
   }
 
-  updateTableData({
+  void updateTableData({
     required String table,
     required String column,
   }) {
     String newData = '$table.$column';
     _storage.element(uuid: uuid).body = newData;
     _read(codeProvider.notifier).generate();
+  }
+
+  SSElement assignAfterAndParentUuid({
+    required SSElement element,
+    required String? parentUuid,
+  }) {
+    final List<SSElement> _elements = _read(ssElementsProvider);
+    late Iterable<SSElement> _children;
+    if (parentUuid == null) {
+      // Parent element is `root`
+      if (_elements.isEmpty) {
+        // `element` is the first element
+        return element;
+      }
+      // There's already something
+      _children = _elements.where(
+        (_element) => _element.parentUuid == null,
+      );
+    } else {
+      element.parentUuid = parentUuid;
+      _children = _elements.where(
+        (_element) => _element.parentUuid == parentUuid,
+      );
+    }
+    if (_children.isNotEmpty) {
+      element.afterUuid = _children.last.uuid;
+    }
+    return element;
   }
 
   @override
