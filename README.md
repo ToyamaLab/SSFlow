@@ -1,6 +1,6 @@
 # SSFlow
 
-kuri 卒論プロジェクト
+SuperSQL利用者のためのブロック型No-Codeツール
 
 ## Getting Started
 
