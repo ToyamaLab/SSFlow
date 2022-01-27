@@ -23,7 +23,16 @@ class CanvasObjectsController extends StateNotifier<List<Widget>> {
 
   void clear() => state = <Widget>[];
 
-  void add(SSElement newElement) {
+  void reload() {
+    // reset the existing list of widgets first
+    clear();
+    final List<SSElement> ssElements = _read(ssElementsProvider.notifier).state;
+    for (SSElement element in ssElements) {
+      _add(element);
+    }
+  }
+
+  void _add(SSElement newElement) {
     L type = newElement.layoutType.toLayoutType!;
     late Widget newWidget;
 

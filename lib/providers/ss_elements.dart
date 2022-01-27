@@ -26,11 +26,16 @@ class _SSElementsController extends StateNotifier<List<SSElement>> {
     codeController = _read(codeProvider.notifier);
   }
   void add(SSElement newElement) {
+    // add処理を行う前にundo処理をする
+    final previous = [...state];
+    _read(undoProvider.notifier).save(previous);
     state.add(newElement);
-    canvasObjectsController.add(newElement);
-    widgetTreeController.generate();
-    draggableObjectsController.reload();
-    codeController.generate();
+    _reloadData();
+  }
+
+  void update(List<SSElement> ssElements) {
+    state = ssElements;
+    _reloadData();
   }
 
   void delete(SSElement element) async {
@@ -47,6 +52,9 @@ class _SSElementsController extends StateNotifier<List<SSElement>> {
             ),
             TextButton(
               onPressed: () {
+                // delete処理を行う前にundo処理をする
+                final previous = [...state];
+                _read(undoProvider.notifier).save(previous);
                 final _node = _read(ssElementsProvider.notifier).treeNode;
                 List<String> _uuids = _node.childrenUuids(element.uuid);
                 for (String _uuid in _uuids) {
@@ -66,16 +74,26 @@ class _SSElementsController extends StateNotifier<List<SSElement>> {
     );
   }
 
-  void _remove(String uuid) =>
-      state.removeWhere((element) => element.uuid == uuid);
-
   void clear() {
+    // clear処理を行う前にundo処理をする
+    final previous = [...state];
+    _read(undoProvider.notifier).save(previous);
     state.clear();
     canvasObjectsController.clear();
     _read(selectedUuid.state).state = '';
     widgetTreeController.clear();
     codeController.clear();
   }
+
+  void _reloadData() {
+    canvasObjectsController.reload();
+    widgetTreeController.generate();
+    draggableObjectsController.reload();
+    codeController.generate();
+  }
+
+  void _remove(String uuid) =>
+      state.removeWhere((element) => element.uuid == uuid);
 
   TreeNode<SSElement> get treeNode => TreeNode.fromList(state);
 }
