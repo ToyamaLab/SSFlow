@@ -27,15 +27,14 @@ class _SSElementsController extends StateNotifier<List<SSElement>> {
   }
   void add(SSElement newElement) {
     // add処理を行う前にundo処理をする
-    final previous = [...state];
-    _read(undoProvider.notifier).save(previous);
+    saveUndo();
     state.add(newElement);
-    _reloadData();
+    reloadData();
   }
 
   void update(List<SSElement> ssElements) {
     state = ssElements;
-    _reloadData();
+    reloadData();
   }
 
   void delete(SSElement element) async {
@@ -53,8 +52,7 @@ class _SSElementsController extends StateNotifier<List<SSElement>> {
             TextButton(
               onPressed: () {
                 // delete処理を行う前にundo処理をする
-                final previous = [...state];
-                _read(undoProvider.notifier).save(previous);
+                saveUndo();
                 final _node = _read(ssElementsProvider.notifier).treeNode;
                 List<String> _uuids = _node.childrenUuids(element.uuid);
                 for (String _uuid in _uuids) {
@@ -62,8 +60,7 @@ class _SSElementsController extends StateNotifier<List<SSElement>> {
                   _read(canvasObjectsProvider.notifier).remove(_uuid);
                 }
                 _read(selectedUuid.state).state = '';
-                widgetTreeController.generate();
-                codeController.generate();
+                reloadData();
                 Navigator.pop(context);
               },
               child: const Text('OK'),
@@ -76,8 +73,7 @@ class _SSElementsController extends StateNotifier<List<SSElement>> {
 
   void clear() {
     // clear処理を行う前にundo処理をする
-    final previous = [...state];
-    _read(undoProvider.notifier).save(previous);
+    saveUndo();
     state.clear();
     canvasObjectsController.clear();
     _read(selectedUuid.state).state = '';
@@ -85,11 +81,16 @@ class _SSElementsController extends StateNotifier<List<SSElement>> {
     codeController.clear();
   }
 
-  void _reloadData() {
+  void reloadData() {
     canvasObjectsController.reload();
     widgetTreeController.generate();
     draggableObjectsController.reload();
     codeController.generate();
+  }
+
+  void saveUndo() {
+    final previous = [...state];
+    _read(undoProvider.notifier).save(previous);
   }
 
   void _remove(String uuid) =>

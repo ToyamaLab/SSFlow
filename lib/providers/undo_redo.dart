@@ -47,6 +47,7 @@ class _UndoController extends _UndoRedoBase {
       final List<SSElement> current = _read(ssElementsProvider.notifier).state;
       _read(redoProvider.notifier).push(current);
       _read(ssElementsProvider.notifier).update(_last);
+      _read(selectedUuid.state).state = '';
     }
   }
 
@@ -73,6 +74,7 @@ class _RedoController extends _UndoRedoBase {
       final List<SSElement> current = _read(ssElementsProvider.notifier).state;
       _read(undoProvider.notifier).push(current);
       _read(ssElementsProvider.notifier).update(_last);
+      _read(selectedUuid.state).state = '';
     }
   }
 }
