@@ -5,8 +5,20 @@ import 'package:riverpod/riverpod.dart';
 import 'package:ssflow/models/_models.dart';
 import 'package:ssflow/providers/_providers.dart';
 
-abstract class _UndoRedoBase extends StateNotifier<List<List<SSElement>>> {
-  _UndoRedoBase() : super([]);
+final undoProvider =
+    StateNotifierProvider<_UndoController, List<List<SSElement>>>(
+  (ref) => _UndoController(ref.read),
+);
+
+final redoProvider =
+    StateNotifierProvider<_RedoController, List<List<SSElement>>>(
+  (ref) => _RedoController(ref.read),
+);
+
+abstract class _UndoRedoController
+    extends StateNotifier<List<List<SSElement>>> {
+  Reader read;
+  _UndoRedoController(this.read) : super([]);
 
   // []と[[]]ではisNotEmptyの判定が異なるので、どちらにも対応するようにする
   // ref:
@@ -15,8 +27,8 @@ abstract class _UndoRedoBase extends StateNotifier<List<List<SSElement>>> {
   /// print(row.isNotEmpty);                 // false
   ///
   /// final row2 = [[]];
-  /// print(row.every((e) => e.isNotEmpty)); // false
-  /// print(row.isNotEmpty);                 // true
+  /// print(row2.every((e) => e.isNotEmpty)); // false
+  /// print(row2.isNotEmpty);                 // true
   ///
   bool get isEnabled =>
       state.isNotEmpty ||
@@ -30,51 +42,29 @@ abstract class _UndoRedoBase extends StateNotifier<List<List<SSElement>>> {
       return null;
     }
   }
-}
 
-final undoProvider =
-    StateNotifierProvider<_UndoController, List<List<SSElement>>>(
-  (ref) => _UndoController(ref.read),
-);
-
-class _UndoController extends _UndoRedoBase {
-  final Reader _read;
-  _UndoController(this._read) : super();
-
-  void undo() {
+  void execute() {
     if (isEnabled) {
       final List<SSElement> _last = pop()!;
-      final List<SSElement> current = _read(ssElementsProvider.notifier).state;
-      _read(redoProvider.notifier).push(current);
-      _read(ssElementsProvider.notifier).update(_last);
-      _read(selectedUuid.state).state = '';
+      final List<SSElement> current = read(ssElementsProvider.notifier).state;
+      final _opposite = this is _UndoController ? redoProvider : undoProvider;
+      read(_opposite.notifier).push(current);
+      read(ssElementsProvider.notifier).update(_last);
+      read(selectedUuid.state).state = '';
     }
   }
+}
 
+class _UndoController extends _UndoRedoController {
+  _UndoController(read) : super(read);
   void save(List<SSElement>? value) {
     if (value != null) {
       push(value);
-      _read(redoProvider.notifier).clear();
+      read(redoProvider.notifier).clear();
     }
   }
 }
 
-final redoProvider =
-    StateNotifierProvider<_RedoController, List<List<SSElement>>>(
-  (ref) => _RedoController(ref.read),
-);
-
-class _RedoController extends _UndoRedoBase {
-  final Reader _read;
-  _RedoController(this._read) : super();
-
-  void redo() {
-    if (isEnabled) {
-      final List<SSElement> _last = pop()!;
-      final List<SSElement> current = _read(ssElementsProvider.notifier).state;
-      _read(undoProvider.notifier).push(current);
-      _read(ssElementsProvider.notifier).update(_last);
-      _read(selectedUuid.state).state = '';
-    }
-  }
+class _RedoController extends _UndoRedoController {
+  _RedoController(read) : super(read);
 }

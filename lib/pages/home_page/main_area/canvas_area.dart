@@ -73,7 +73,7 @@ class CanvasArea extends ConsumerWidget {
                   disabledColor: SSColor.grey,
                   onPressed: _undoEnabled
                       ? () {
-                          ref.watch(undoProvider.notifier).undo();
+                          ref.watch(undoProvider.notifier).execute();
                         }
                       : null,
                 ),
@@ -84,7 +84,7 @@ class CanvasArea extends ConsumerWidget {
                   disabledColor: SSColor.grey,
                   onPressed: _redoEnabled
                       ? () {
-                          ref.watch(redoProvider.notifier).redo();
+                          ref.watch(redoProvider.notifier).execute();
                         }
                       : null,
                 ),
