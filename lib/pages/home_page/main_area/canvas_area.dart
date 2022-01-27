@@ -19,6 +19,8 @@ class CanvasArea extends ConsumerWidget {
     final _width = ref.watch(mainAreaSize).width;
     final _height = ref.watch(mainAreaSize).height;
     final _canvasObjects = ref.watch(canvasObjectsProvider);
+    final _undoEnabled = ref.watch(undoProvider.notifier).isEnabled;
+    final _redoEnabled = ref.watch(redoProvider.notifier).isEnabled;
 
     return Container(
       width: _width,
@@ -58,6 +60,36 @@ class CanvasArea extends ConsumerWidget {
                     parentElement: null,
                   );
             },
+          ),
+          Positioned(
+            top: 10.0,
+            left: 10.0,
+            child: Row(
+              children: [
+                // Undo button
+                IconButton(
+                  icon: const Icon(Icons.arrow_back),
+                  color: SSColor.white,
+                  disabledColor: SSColor.grey,
+                  onPressed: _undoEnabled
+                      ? () {
+                          ref.watch(undoProvider.notifier).execute();
+                        }
+                      : null,
+                ),
+                // Redo button
+                IconButton(
+                  icon: const Icon(Icons.arrow_forward),
+                  color: SSColor.white,
+                  disabledColor: SSColor.grey,
+                  onPressed: _redoEnabled
+                      ? () {
+                          ref.watch(redoProvider.notifier).execute();
+                        }
+                      : null,
+                ),
+              ],
+            ),
           ),
           /*// parent info for debug
           Positioned(

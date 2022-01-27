@@ -10,4 +10,5 @@ export 'size.dart';
 export 'ss_element_data.dart';
 export 'ss_elements.dart';
 export 'text_editing_controller.dart';
+export 'undo_redo.dart';
 export 'widget_tree.dart';

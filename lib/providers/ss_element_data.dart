@@ -41,7 +41,7 @@ class _SSElementController extends StateNotifier<SSElement> {
     SSElement _element = _storage.element(uuid: uuid);
     _element.body = newData;
     _storage.update(uuid: uuid, element: _element);
-    _read(codeProvider.notifier).generate();
+    _read(ssElementsProvider.notifier).reloadData();
   }
 
   void updateTableData({
@@ -50,7 +50,7 @@ class _SSElementController extends StateNotifier<SSElement> {
   }) {
     String newData = '$table.$column';
     _storage.element(uuid: uuid).body = newData;
-    _read(codeProvider.notifier).generate();
+    _read(ssElementsProvider.notifier).reloadData();
   }
 
   SSElement assignAfterAndParentUuid({
